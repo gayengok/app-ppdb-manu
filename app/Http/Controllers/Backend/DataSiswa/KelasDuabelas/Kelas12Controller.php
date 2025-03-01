@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\KelasSepuluh;
 use App\Models\kelasSebelas;
 use App\Models\KelasDuaBelas;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class Kelas12Controller extends Controller
@@ -24,14 +25,21 @@ class Kelas12Controller extends Controller
 
         $totalSiswa = $totalSiswaKelas10 + $totalSiswaKelas11 + $totalSiswaKelas12;
 
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return view('backend.data-siswa.kelas-12.data-kelas-12', compact('kelasSepuluhs', 'kelasDuaBelas', 'user', 'totalSiswa'));
+
+        return view('backend.data-siswa.kelas-12.data-kelas-12', compact('kelasSepuluhs', 'kelasDuaBelas', 'user', 'notifications', 'totalSiswa'));
     }
 
     public function create()
     {
         $user = Auth::user();
-        return view('backend.data-siswa.kelas-12.create-data-kelas-12', compact('user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.data-siswa.kelas-12.create-data-kelas-12', compact('notifications', 'user'));
     }
 
     public function store(Request $request)
@@ -55,7 +63,10 @@ class Kelas12Controller extends Controller
     {
         $kelasDuaBelas = KelasDuaBelas::findOrFail($id);
         $user = Auth::user();
-        return view('backend.data-siswa.kelas-12.edit-data-kelas-12', compact('kelasDuaBelas', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.data-siswa.kelas-12.edit-data-kelas-12', compact('kelasDuaBelas', 'user', 'notifications'));
     }
 
     public function update(Request $request, $id)
