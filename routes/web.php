@@ -49,9 +49,8 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.process');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Register routes
-// Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 // Route::post('/register', [RegisterController::class, 'register'])->name('register.process');
-
 // BAGIAN RESET PASSWORD
 
 // Profil 
