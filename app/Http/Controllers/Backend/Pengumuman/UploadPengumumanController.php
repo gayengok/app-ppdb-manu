@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Pengumuman;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pengumuman;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,13 +15,19 @@ class UploadPengumumanController extends Controller
     {
         $user = Auth::user();
         $pengumuman = Pengumuman::all();
-        return view('backend.pengumuman.upload', compact('pengumuman', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.pengumuman.upload', compact('pengumuman', 'user', 'notifications'));
     }
 
     public function create()
     {
         $user = Auth::user();
-        return view('backend.pengumuman.create', compact('user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.pengumuman.create', compact('user', 'notifications'));
     }
 
     public function store(Request $request)
@@ -53,7 +60,10 @@ class UploadPengumumanController extends Controller
     {
         $user = Auth::user();
         $pengumuman = Pengumuman::findOrFail($id);
-        return view('backend.pengumuman.edit', compact('pengumuman', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.pengumuman.edit', compact('pengumuman', 'user', 'notifications'));
     }
 
     public function update(Request $request, $id)
