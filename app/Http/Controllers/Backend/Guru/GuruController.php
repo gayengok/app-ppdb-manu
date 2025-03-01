@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Guru;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Guru;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class GuruController extends Controller
@@ -12,16 +13,22 @@ class GuruController extends Controller
 
     public function index()
     {
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
         $user = Auth::user();
         $jumlahGuru = Guru::count();
         $gurus = Guru::orderBy('created_at', 'desc')->paginate(5);
-        return view('backend.guru.guru', compact('gurus', 'jumlahGuru', 'user'));
+        return view('backend.guru.guru', compact('gurus', 'notifications', 'jumlahGuru', 'user'));
     }
 
     public function create()
     {
         $user = Auth::user();
-        return view('backend.guru.create', compact('user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.guru.create', compact('notifications', 'user'));
     }
 
 
