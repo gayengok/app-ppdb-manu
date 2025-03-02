@@ -298,11 +298,9 @@ section {
 
 .navbar a,
 .navbar a:focus {
-  /* display: flex; */
   align-items: center;
   justify-content: space-between;
   padding: 10px 0 10px 30px;
-  font-size: 16px;
   font-weight: 700;
   color: white;
 }
@@ -321,6 +319,12 @@ section {
   color: rgba(223, 191, 8, 0.943);
 }
 
+.navbar .getstarted:hover,
+.navbar .getstarted:focus:hover {
+  color: #fff;
+  background: #5969f3;
+}
+
 .navbar .getstarted,
 .navbar .getstarted:focus {
   background: #4154f1;
@@ -330,10 +334,30 @@ section {
   color: #fff;
 }
 
-.navbar .getstarted:hover,
-.navbar .getstarted:focus:hover {
-  color: #fff;
-  background: #5969f3;
+
+.navbar .dropdown ul a:hover,
+.navbar .dropdown ul .active:hover,
+.navbar .dropdown ul li:hover>a {
+  color: #4154f1;
+}
+
+
+.navbar .dropdown:hover>ul {
+  opacity: 1;
+  top: 100%;
+  visibility: visible;
+}
+
+
+.navbar .megamenu ul li a,
+.navbar .megamenu ul li:hover>a {
+  color: #013289;
+}
+
+.navbar .megamenu ul li a:hover,
+.navbar .megamenu ul li .active,
+.navbar .megamenu ul li .active:hover {
+  color: #4154f1;
 }
 
 .navbar .dropdown ul {
@@ -367,17 +391,8 @@ section {
   font-size: 12px;
 }
 
-.navbar .dropdown ul a:hover,
-.navbar .dropdown ul .active:hover,
-.navbar .dropdown ul li:hover>a {
-  color: #4154f1;
-}
 
-.navbar .dropdown:hover>ul {
-  opacity: 1;
-  top: 100%;
-  visibility: visible;
-}
+
 
 .navbar .megamenu {
   position: static;
@@ -394,16 +409,7 @@ section {
   flex: 1;
 }
 
-.navbar .megamenu ul li a,
-.navbar .megamenu ul li:hover>a {
-  color: #013289;
-}
 
-.navbar .megamenu ul li a:hover,
-.navbar .megamenu ul li .active,
-.navbar .megamenu ul li .active:hover {
-  color: #4154f1;
-}
 
 .navbar .dropdown .dropdown ul {
   top: 0;
