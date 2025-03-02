@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\HasilSeleksi;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
@@ -14,8 +15,12 @@ class HasilSeleksiController extends Controller
     {
         $user = Auth::user();
         $hasilSeleksi = HasilSeleksi::orderBy('created_at', 'desc')->paginate(5);
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return view('backend.students.hasil-seleksi', compact('hasilSeleksi', 'user'));
+
+        return view('backend.students.hasil-seleksi', compact('hasilSeleksi', 'notifications', 'user'));
     }
 
     // Mengupdate status siswa (Lolos/Gagal)
@@ -41,7 +46,11 @@ class HasilSeleksiController extends Controller
     public function create()
     {
         $user = Auth::user();
-        return view('backend.students.create-hasil', compact('user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('backend.students.create-hasil', compact('notifications', 'user'));
     }
 
     public function store(Request $request)
