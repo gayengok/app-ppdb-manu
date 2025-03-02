@@ -99,6 +99,11 @@
 
 
                         <script src="<?php echo e(asset('siswa/js/siswa.js')); ?>"></script>
+
+                        <script src="<?php echo e(asset('popup/js/popup.js')); ?>"></script>
+                        <?php if(session('success')): ?>
+                            <meta name="success-message" content="<?php echo e(session('success')); ?>">
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

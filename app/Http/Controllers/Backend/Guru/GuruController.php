@@ -51,7 +51,10 @@ class GuruController extends Controller
     {
         $user = Auth::user();
         $guru = Guru::findOrFail($id);
-        return view('backend.guru.edit', compact('guru', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.guru.edit', compact('notifications', 'guru', 'user'));
     }
 
     public function update(Request $request, $id)

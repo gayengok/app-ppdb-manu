@@ -15,14 +15,6 @@
                             </a>
                         </div>
 
-                        <!-- Tampilkan pesan sukses jika ada -->
-                        <?php if(session('success')): ?>
-                            <div class="alert alert-success">
-                                <?php echo e(session('success')); ?>
-
-                            </div>
-                        <?php endif; ?>
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered">
@@ -75,6 +67,12 @@
                                 </table>
                             </div>
                         </div>
+
+
+                        <script src="<?php echo e(asset('popup/js/popup.js')); ?>"></script>
+                        <?php if(session('success')): ?>
+                            <meta name="success-message" content="<?php echo e(session('success')); ?>">
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

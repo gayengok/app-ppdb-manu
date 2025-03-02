@@ -106,7 +106,7 @@ Route::prefix('admin')->group(function () {
     Route::post('guru', [GuruController::class, 'store'])->name('guru.store');
     Route::get('guru/{guru}', [GuruController::class, 'show'])->name('guru.show');
     Route::get('guru/{guru}/edit', [GuruController::class, 'edit'])->name('guru.edit');
-    Route::patch('guru/{guru}', [GuruController::class, 'update'])->name('guru.update');
+    Route::put('guru/{guru}', [GuruController::class, 'update'])->name('guru.update');
     Route::delete('guru/{guru}', [GuruController::class, 'destroy'])->name('guru.destroy');
 });
 
