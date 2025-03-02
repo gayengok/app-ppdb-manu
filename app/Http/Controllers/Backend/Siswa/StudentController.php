@@ -18,8 +18,11 @@ class StudentController extends Controller
         $artikel = Artikel::where('status', 'Published')
             ->orderBy('published_date', 'desc')
             ->first();
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-        return view('frontend.students.create', compact('user', 'artikel'));
+        return view('frontend.students.create', compact('user', 'notifications', 'artikel'));
     }
 
 
@@ -68,7 +71,10 @@ class StudentController extends Controller
 
         $user = Auth::user();
         $students = $query->orderBy('created_at', 'desc')->paginate(10);
-        return view('backend.students.siswa-baru', compact('students', 'user'))->with('search', $request->search);
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.students.siswa-baru', compact('students', 'notifications', 'user'))->with('search', $request->search);
     }
 
 
@@ -83,7 +89,10 @@ class StudentController extends Controller
     {
         $user = Auth::user();
         $student = Student::findOrFail($id);
-        return view('backend.students.show', compact('student', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.students.show', compact('student', 'notifications', 'user'));
     }
 
     public function downloadPdf($id)
