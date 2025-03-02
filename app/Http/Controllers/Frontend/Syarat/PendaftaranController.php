@@ -5,6 +5,7 @@ namespace App\Http\Controllers\frontend\Syarat;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Dokumen;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Artikel;
@@ -55,8 +56,10 @@ class PendaftaranController extends Controller
 
         $user = Auth::user();
         $dokumens = $query->orderBy('created_at', 'asc')->paginate(5);
-
-        return view('backend.dokumen.dokumen-siswa', compact('dokumens', 'user'))->with('search', $request->search);
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.dokumen.dokumen-siswa', compact('dokumens', 'notifications', 'user'))->with('search', $request->search);
     }
 
     public function download($filename)
