@@ -52,7 +52,7 @@
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-envelope"></i>
                     </a>
-                    <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
+                    {{-- <ul class="dropdown-menu messages-notif-box animated fadeIn" aria-labelledby="messageDropdown">
                         <li>
                             <div class="dropdown-title d-flex justify-content-between align-items-center">
                                 Messages
@@ -112,7 +112,7 @@
                                     class="fa fa-angle-right"></i>
                             </a>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </li>
 
 
@@ -142,7 +142,7 @@
                     <a class="nav-link" data-bs-toggle="dropdown" href="#" aria-expanded="false">
                         <i class="fas fa-layer-group"></i>
                     </a>
-                    <div class="dropdown-menu quick-actions animated fadeIn">
+                    {{-- <div class="dropdown-menu quick-actions animated fadeIn">
                         <div class="quick-actions-header">
                             <span class="title mb-1">Quick Actions</span>
                             <span class="subtitle op-7">Shortcuts</span>
@@ -201,7 +201,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </li>
 
 
