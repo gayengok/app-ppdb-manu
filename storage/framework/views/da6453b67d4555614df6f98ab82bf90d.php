@@ -15,14 +15,6 @@
                             </a>
                         </div>
 
-                        <!-- Tampilkan pesan sukses jika ada -->
-                        <?php if(session('success')): ?>
-                            <div class="alert alert-success">
-                                <?php echo e(session('success')); ?>
-
-                            </div>
-                        <?php endif; ?>
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered"

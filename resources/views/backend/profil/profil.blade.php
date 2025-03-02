@@ -65,7 +65,14 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <script src="{{ asset('popup/js/popup.js') }}"></script>
+                            @if (session('success'))
+                                <meta name="success-message" content="{{ session('success') }}">
+                            @endif
                         </div>
+
+
                     </div>
                 </div>
             </div>
