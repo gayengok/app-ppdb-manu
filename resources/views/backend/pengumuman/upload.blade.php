@@ -15,13 +15,6 @@
                             </a>
                         </div>
 
-                        <!-- Tampilkan pesan sukses jika ada -->
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered"
@@ -77,6 +70,11 @@
                                 </table>
                             </div>
                         </div>
+
+                        <script src="{{ asset('popup/js/popup.js') }}"></script>
+                        @if (session('success'))
+                            <meta name="success-message" content="{{ session('success') }}">
+                        @endif
                     </div>
                 </div>
             </div>

@@ -99,6 +99,10 @@
                             </div>
                         </div>
                         <script src="{{ asset('siswa/js/siswa.js') }}"></script>
+                        <script src="{{ asset('popup/js/popup.js') }}"></script>
+                        @if (session('success'))
+                            <meta name="success-message" content="{{ session('success') }}">
+                        @endif
                     </div>
                 </div>
             </div>

@@ -91,31 +91,11 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            <?php if(session('success')): ?>
-                Swal.fire({
-                    title: 'Berhasil!',
-                    text: '<?php echo e(session('success')); ?>',
-                    icon: 'success',
-                    iconColor: '#28A745',
-                    background: '#ffffff',
-                    color: '#333',
-                    confirmButtonText: 'OK',
-                    confirmButtonColor: '#28A745',
-                    showClass: {
-                        popup: 'animate__animated animate__fadeInDown'
-                    },
-                    hideClass: {
-                        popup: 'animate__animated animate__fadeOutUp'
-                    },
-                    backdrop: `rgba(0, 0, 0, 0.3)`
-                });
-            <?php endif; ?>
-        });
-    </script>
+    <script src="<?php echo e(asset('popup/js/popup.js')); ?>"></script>
+    <?php if(session('success')): ?>
+        <meta name="success-message" content="<?php echo e(session('success')); ?>">
+    <?php endif; ?>
 <?php $__env->stopSection(); ?>
-
 
 <?php $__env->startSection('scripts'); ?>
     <script>

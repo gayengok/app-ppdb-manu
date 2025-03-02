@@ -12,14 +12,7 @@
                             </h4>
                         </div>
 
-                        <?php if(session('success')): ?>
-                            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                                <?php echo e(session('success')); ?>
-
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </div>
-                        <?php endif; ?>
+                        
 
                         <div class="container mt-3">
                             <div class="row">
@@ -113,6 +106,11 @@
                             </div>
 
                         </div>
+
+                        <script src="<?php echo e(asset('popup/js/popup.js')); ?>"></script>
+                        <?php if(session('success')): ?>
+                            <meta name="success-message" content="<?php echo e(session('success')); ?>">
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

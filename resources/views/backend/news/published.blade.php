@@ -12,13 +12,13 @@
                             </h4>
                         </div>
 
-                        @if (session('success'))
+                        {{-- @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
                                 {{ session('success') }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert"
                                     aria-label="Close"></button>
                             </div>
-                        @endif
+                        @endif --}}
 
                         <div class="container mt-3">
                             <div class="row">
@@ -111,6 +111,11 @@
                             </div>
 
                         </div>
+
+                        <script src="{{ asset('popup/js/popup.js') }}"></script>
+                        @if (session('success'))
+                            <meta name="success-message" content="{{ session('success') }}">
+                        @endif
                     </div>
                 </div>
             </div>
