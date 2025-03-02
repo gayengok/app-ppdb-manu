@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Profil;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sejarah;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -14,13 +15,19 @@ class ProfilController extends Controller
     {
         $user = Auth::user();
         $sejarahs = Sejarah::paginate(10);
-        return view('backend.profil.profil', compact('sejarahs', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.profil.profil', compact('sejarahs', 'notifications', 'user'));
     }
 
     public function create()
     {
         $user = Auth::user();
-        return view('backend.profil.create', compact('user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.profil.create', compact('notifications', 'user'));
     }
 
     // Menyimpan Sejarah baru ke database
@@ -45,7 +52,10 @@ class ProfilController extends Controller
     {
         $user = Auth::user();
         $sejarah = Sejarah::findOrFail($id);
-        return view('backend.profil.edit', compact('sejarah', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.profil.edit', compact('sejarah', 'notifications', 'user'));
     }
 
 
