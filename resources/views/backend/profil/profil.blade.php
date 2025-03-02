@@ -71,8 +71,6 @@
                                 <meta name="success-message" content="{{ session('success') }}">
                             @endif
                         </div>
-
-
                     </div>
                 </div>
             </div>
