@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\UploadPendaftaran;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class UploadPendaftaranController extends Controller
@@ -14,14 +15,19 @@ class UploadPendaftaranController extends Controller
     {
         $user = Auth::user();
         $uploadpendaftarans = UploadPendaftaran::all();
-        return view('backend.upload-pendaftaran.upload-pendaftaran', compact('uploadpendaftarans', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.upload-pendaftaran.upload-pendaftaran', compact('uploadpendaftarans', 'notifications', 'user'));
     }
 
     public function create()
     {
         $user = Auth::user();
-
-        return view('backend.upload-pendaftaran.create-pendaftaran', compact('user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.upload-pendaftaran.create-pendaftaran', compact('notifications', 'user'));
     }
 
     public function store(Request $request)
@@ -48,7 +54,10 @@ class UploadPendaftaranController extends Controller
     {
         $user = Auth::user();
         $uploadPendaftaran = UploadPendaftaran::findOrFail($id);
-        return view('backend.upload-pendaftaran.edit', compact('uploadPendaftaran', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.upload-pendaftaran.edit', compact('uploadPendaftaran', 'notifications', 'user'));
     }
 
     // Menyimpan perubahan data

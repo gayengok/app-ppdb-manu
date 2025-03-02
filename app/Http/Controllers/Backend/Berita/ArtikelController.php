@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Berita;
 
 use App\Http\Controllers\Controller;
 use App\Models\Artikel;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,11 @@ class ArtikelController extends Controller
         $artikels = Artikel::orderBy('published_date', 'desc')->paginate(10);
 
         $user = Auth::user();
-        return view('backend.news.published', compact('artikels', 'user'))->with('search', $request->search);
+
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.news.published', compact('artikels', 'notifications', 'user'))->with('search', $request->search);
     }
 
 
@@ -85,7 +90,10 @@ class ArtikelController extends Controller
         $user = Auth::user();
         $artikel = Artikel::findOrFail($id);
 
-        return view('backend.news.edit-artikel', compact('artikel', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.news.edit-artikel', compact('artikel', 'notifications', 'user'));
     }
 
 
@@ -141,6 +149,9 @@ class ArtikelController extends Controller
     public function post()
     {
         $user = Auth::user();
-        return view('backend.news.new-artikel', compact('user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.news.new-artikel', compact('notifications', 'user'));
     }
 }
