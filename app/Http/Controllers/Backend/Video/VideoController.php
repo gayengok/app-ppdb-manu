@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Video;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Video;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,14 +16,20 @@ class VideoController extends Controller
     {
         $user = Auth::user();
         $videos = Video::latest()->paginate(5);
-        return view('backend.gallery.video.video', compact('videos', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.gallery.video.video', compact('notifications', 'videos', 'user'));
     }
 
 
     public function create()
     {
         $user = Auth::user();
-        return view('backend.gallery.video.craete', compact('user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.gallery.video.craete', compact('notifications', 'user'));
     }
 
     public function store(Request $request)
@@ -44,7 +51,10 @@ class VideoController extends Controller
     {
         $user = Auth::user();
         $video = Video::findOrFail($id);
-        return view('backend.gallery.video.edit', compact('video', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.gallery.video.edit', compact('notifications', 'video', 'user'));
     }
 
     public function update(Request $request, $id)

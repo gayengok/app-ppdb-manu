@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Photo;
+use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class PhotoController extends Controller
@@ -17,7 +18,10 @@ class PhotoController extends Controller
     {
         $user = Auth::user();
         $photos = Photo::orderBy('created_at', 'desc')->paginate(5);
-        return view('backend.gallery.photo.photo', compact('photos', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.gallery.photo.photo', compact('notifications', 'photos', 'user'));
     }
 
     /**
@@ -26,7 +30,10 @@ class PhotoController extends Controller
     public function create()
     {
         $user = Auth::user();
-        return view('backend.gallery.photo.create', compact('user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.gallery.photo.create', compact('notifications', 'user'));
     }
 
     /**
@@ -70,7 +77,10 @@ class PhotoController extends Controller
     {
         $user = Auth::user();
         $photo = Photo::findOrFail($id);
-        return view('backend.gallery.photo.edit', compact('photo', 'user'));
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.gallery.photo.edit', compact('notifications', 'photo', 'user'));
     }
 
 
@@ -82,25 +92,20 @@ class PhotoController extends Controller
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Ambil data berdasarkan ID
         $photo = Photo::findOrFail($id);
 
-        // Update title
         $photo->title = $request->title;
 
-        // Jika ada foto baru yang diupload
         if ($request->hasFile('photo')) {
             // Hapus foto lama jika ada
             if ($photo->photo_path && Storage::exists('public/' . $photo->photo_path)) {
                 Storage::delete('public/' . $photo->photo_path);
             }
 
-            // Simpan foto baru
             $path = $request->file('photo')->store('photos', 'public');
             $photo->photo_path = $path;
         }
 
-        // Simpan perubahan
         $photo->save();
 
         return redirect()->route('photo.index')->with('success', 'Photo updated successfully.');
