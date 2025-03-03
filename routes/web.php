@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\Photo\PhotoController;
 use App\Http\Controllers\Backend\Profil\ProfilController;
 use App\Http\Controllers\HasilSeleksiController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Backend\DataSiswa\KelasSepuluh\KelasSepuluhController;
 use App\Http\Controllers\Backend\DataSiswa\KelasSebelas\Kelas11Controller;
 use App\Http\Controllers\Backend\DataSiswa\KelasDuabelas\Kelas12Controller;
@@ -40,7 +41,7 @@ Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard'
 
 Route::get('/notifications/mark-as-read', function () {
     \App\Models\Notification::where('is_read', false)->update(['is_read' => true]);
-    return redirect()->back();
+    return Redirect::back();
 })->name('notifications.markAsRead');
 
 // Route untuk menampilkan halaman login
