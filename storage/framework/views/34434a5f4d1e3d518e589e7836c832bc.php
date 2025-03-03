@@ -44,11 +44,6 @@
                     <?php endif; ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
-
-
-            <!-- Video 2 -->
-            
-
         </div>
     </section>
 <?php $__env->stopSection(); ?>

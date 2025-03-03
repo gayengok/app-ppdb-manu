@@ -44,34 +44,6 @@
                     @endif
                 @endforeach
             </div>
-
-
-            <!-- Video 2 -->
-            {{-- <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/video_id2" allowfullscreen></iframe>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Judul Video 2</h5>
-                            <p class="card-text">Deskripsi singkat video kedua.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Video 3 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/video_id3" allowfullscreen></iframe>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">Judul Video 3</h5>
-                            <p class="card-text">Deskripsi singkat video ketiga.</p>
-                        </div>
-                    </div>
-                </div> --}}
-
         </div>
     </section>
 @endsection
