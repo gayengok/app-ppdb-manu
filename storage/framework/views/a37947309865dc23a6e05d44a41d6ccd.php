@@ -1,6 +1,6 @@
-@extends('frontend.home.landingpage')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
     <section class="numeric-test-section py-8 bg-light">
         <div class="container">
             <h2 class="text-center mb-5"
@@ -10,7 +10,7 @@
 
             <div class="card shadow p-4">
                 <form action="#" method="POST">
-                    @csrf
+                    <?php echo csrf_field(); ?>
 
                     <div class="mb-4">
                         <label class="form-label fw-bold">1. Berapakah hasil dari 25 + 37?</label>
@@ -67,4 +67,6 @@
             </div>
         </div>
     </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('frontend.home.landingpage', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\PROJECT WEB SKRIPSI\PPDB_MA_NU_LU\resources\views/frontend/test-soal/test-numeric/test-numeric.blade.php ENDPATH**/ ?>

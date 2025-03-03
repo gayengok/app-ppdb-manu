@@ -34,6 +34,9 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Frontend\Contact\ContactController;
 use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\Frontend\Soal\Verbal\SoalVerbalController;
+use App\Http\Controllers\Frontend\Soal\Numerik\SoalNumerikController;
+use App\Http\Controllers\Frontend\Soal\BahasaInggris\SoalBahasaInggrisController;
 
 // DATA ROUTE BAGIAN BACKEND
 
@@ -208,3 +211,7 @@ Route::get('/visi-misi', [VisiMisiController::class, 'visiMisi'])->name('profil.
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::get('/search', [SearchController::class, 'index'])->name('search');
+
+Route::get('/soal-verbal', [SoalVerbalController::class, 'index'])->name('soal-verbal.index');
+Route::get('/soal-numerik', [SoalNumerikController::class, 'index'])->name('soal-numerik.index');
+Route::get('/soal-bahasa-inggris', [SoalBahasaInggrisController::class, 'index'])->name('soal-bahasa-inggris.index');
