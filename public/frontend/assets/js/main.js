@@ -294,3 +294,28 @@
   new PureCounter();
 
 })();
+
+
+// BAGIAN TAIMER
+
+document.addEventListener("DOMContentLoaded", function () {
+  let totalTime = 10 * 60; // 10 menit dalam detik
+  let timerElement = document.getElementById("timer");
+
+  function updateTimer() {
+      let minutes = Math.floor(totalTime / 60);
+      let seconds = totalTime % 60;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      timerElement.textContent = minutes + ":" + seconds;
+
+      if (totalTime <= 0) {
+          clearInterval(timerInterval);
+          alert("Waktu habis! Jawaban akan dikirim otomatis.");
+          document.querySelector("form").submit(); 
+      } else {
+          totalTime--;
+      }
+  }
+
+  let timerInterval = setInterval(updateTimer, 1000);
+});

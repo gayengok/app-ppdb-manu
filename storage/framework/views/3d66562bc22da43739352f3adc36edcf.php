@@ -8,9 +8,17 @@
                 <span style="color: #FF9F00;">Soal</span> Verbal
             </h2>
 
+
             <div class="card shadow p-4">
                 <form action="#" method="POST">
                     <?php echo csrf_field(); ?>
+
+                    <div id="timer" class="text-end fw-bold text-danger mb-3" style="font-size: 20px;">
+                        <span id="countdown"
+                            style="display: inline-block; padding: 5px 10px; border: 2px solid red; border-radius: 5px;">
+                            10:00
+                        </span>
+                    </div>
 
                     <div class="mb-4">
                         <label class="form-label fw-bold">1. Pilih sinonim dari kata "Abstrak"</label>
@@ -75,5 +83,15 @@
         padding-bottom: 5rem !important;
     }
 </style>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        if (!localStorage.getItem("testStarted")) {
+            alert("Silakan klik tombol 'MULAI' untuk memulai tes.");
+            window.location.href = "<?php echo e(route('soal-verbal.index')); ?>";
+        }
+    });
+</script>
 
 <?php echo $__env->make('frontend.home.landingpage', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\PROJECT WEB SKRIPSI\PPDB_MA_NU_LU\resources\views/frontend/test-soal/test-verbal/soal-verbal.blade.php ENDPATH**/ ?>

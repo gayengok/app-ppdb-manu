@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-8 mx-auto content-container">
                     <!-- Judul Artikel -->
-                    <h1 class="judul-berita" style="font-weight: 800; line-height: 1.4; text-align: center; margin: 0 auto;">
+                    <h1 class="judul-berita" style="font-weight: 800; line-height: 1.2; text-align: center; margin: 0 auto;">
                         <?php echo e($artikel->title); ?>
 
                     </h1>
@@ -114,9 +114,9 @@
 
 
     .judul-berita {
-        font-size: 2.8rem;
+        font-size: 2.5rem;
         font-weight: 800;
-        line-height: 1.4;
+        /* line-height: 1.4; */
         text-align: center;
         margin: 0 auto;
     }
@@ -124,7 +124,7 @@
     @media (max-width: 768px) {
         .judul-berita {
             font-size: 1.8rem;
-            line-height: 1.2;
+            line-height: 1.1;
         }
     }
 

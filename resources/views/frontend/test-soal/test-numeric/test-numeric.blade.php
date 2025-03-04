@@ -12,6 +12,13 @@
                 <form action="#" method="POST">
                     @csrf
 
+                    <div id="timer" class="text-end fw-bold text-danger mb-3" style="font-size: 20px;">
+                        <span id="countdown"
+                            style="display: inline-block; padding: 5px 10px; border: 2px solid red; border-radius: 5px;">
+                            10:00
+                        </span>
+                    </div>
+
                     <div class="mb-4">
                         <label class="form-label fw-bold">1. Berapakah hasil dari 25 + 37?</label>
                         <div>

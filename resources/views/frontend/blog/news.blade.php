@@ -142,8 +142,11 @@
                                     <p class="card-date text-muted" style="font-size: 12px;">
                                         {{ \Carbon\Carbon::parse($artikel->published_date)->format('d M Y') }}
                                     </p>
-                                    <h5 class="card-title">{{ $artikel->title }}</h5>
-                                    <p class="card-text">{{ $artikel->short_description }}</p>
+                                    <h5 class="card-title"
+                                        style="font-weight: 500; font-size: 16px; font-family: 'Poppins', sans-serif;">
+                                        {{ $artikel->title }}
+                                    </h5>
+                                    <p class="card-text" style="font-size: 12px;">{{ $artikel->short_description }}</p>
                                 </a>
                             </div>
                         </div>

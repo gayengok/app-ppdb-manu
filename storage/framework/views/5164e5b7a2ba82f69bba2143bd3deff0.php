@@ -73,8 +73,12 @@
                                     <?php echo e(\Carbon\Carbon::parse($artikel->published_date)->format('d M Y')); ?>
 
                                 </p>
-                                <h5 class="card-title"><?php echo e($artikel->title); ?></h5>
-                                <p class="card-text"><?php echo e($artikel->short_description); ?></p>
+                                <h5 class="card-title"
+                                    style="font-weight: 500; font-size: 16px; font-family: 'Poppins', sans-serif;">
+                                    <?php echo e($artikel->title); ?>
+
+                                </h5>
+                                <p class="card-text" style="font-size: 12px;"><?php echo e($artikel->short_description); ?></p>
                             </a>
                         </div>
                     </div>

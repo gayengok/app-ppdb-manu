@@ -32,7 +32,15 @@
                             </div>
                             <div>
                                 <span class="text-warning"><i class="fas fa-clock"></i> 20 Menit</span>
-                                <a href="{{ route('soal-verbal.index') }}" class="btn btn-success ms-3">MULAI</a>
+                                <a href="{{ route('soal-verbal.index') }}" class="btn btn-success ms-3"
+                                    onclick="startTest()">MULAI</a>
+
+                                <script>
+                                    function startTest() {
+                                        localStorage.setItem("testStarted", "true");
+                                    }
+                                </script>
+
                             </div>
                         </div>
 
