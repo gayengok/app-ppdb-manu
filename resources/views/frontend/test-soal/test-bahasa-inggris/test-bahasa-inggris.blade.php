@@ -69,3 +69,11 @@
         </div>
     </section>
 @endsection
+
+
+<style>
+    .py-8 {
+        padding-top: 5rem !important;
+        padding-bottom: 5rem !important;
+    }
+</style>
