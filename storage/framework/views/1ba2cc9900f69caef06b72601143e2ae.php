@@ -54,6 +54,11 @@
             margin-top: 30px;
         }
     }
+
+    .py-8 {
+        padding-top: 6rem !important;
+        padding-bottom: 6rem !important;
+    }
 </style>
 
 <?php echo $__env->make('frontend.home.landingpage', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\PROJECT WEB SKRIPSI\PPDB_MA_NU_LU\resources\views/frontend/profil/sejarah.blade.php ENDPATH**/ ?>

@@ -31,7 +31,7 @@
                                 <b>VERBAL</b>
                             </div>
                             <div>
-                                <span class="text-warning"><i class="fas fa-clock"></i> 20 Menit</span>
+                                <span class="text-warning"><i class="fas fa-clock"></i> 10 Menit</span>
                                 <a href="<?php echo e(route('soal-verbal.index')); ?>" class="btn btn-success ms-3"
                                     onclick="startTest()">MULAI</a>
 
@@ -63,7 +63,7 @@
                                 <b>NUMERIK</b>
                             </div>
                             <div>
-                                <span class="text-warning"><i class="fas fa-clock"></i> 20 Menit</span>
+                                <span class="text-warning"><i class="fas fa-clock"></i> 10 Menit</span>
                                 <a href="<?php echo e(route('soal-numerik.index')); ?>" class="btn btn-success ms-3">MULAI</a>
                             </div>
                         </div>
@@ -81,14 +81,14 @@
                                     <b>ENGLISH</b>
                             </div>
                             <div>
-                                <span class="text-warning"><i class="fas fa-clock"></i> 20 Menit</span>
+                                <span class="text-warning"><i class="fas fa-clock"></i> 10 Menit</span>
                                 <a href="<?php echo e(route('soal-bahasa-inggris.index')); ?>" class="btn btn-success ms-3">MULAI</a>
                             </div>
                         </div>
                     </div>
 
                     <p class="text-center mt-4">
-                        <small>Untuk melihat hasil, kamu harus mengerjakan semua tipe tes di atas.</small>
+                        <small>SELAMAT MENGERJAKAN!!!!!!!!!</small>
                     </p>
                 </div>
             </div>

@@ -53,4 +53,9 @@
             margin-top: 30px;
         }
     }
+
+    .py-8 {
+        padding-top: 6rem !important;
+        padding-bottom: 6rem !important;
+    }
 </style>
