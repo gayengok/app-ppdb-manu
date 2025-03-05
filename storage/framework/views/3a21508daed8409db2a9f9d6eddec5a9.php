@@ -46,4 +46,11 @@
     </section>
 <?php $__env->stopSection(); ?>
 
+<style>
+    .py-8 {
+        padding-top: 5rem !important;
+        padding-bottom: 5rem !important;
+    }
+</style>
+
 <?php echo $__env->make('frontend.home.landingpage', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\PROJECT WEB SKRIPSI\PPDB_MA_NU_LU\resources\views/frontend/test-soal/petunjuk/petunjuk.blade.php ENDPATH**/ ?>

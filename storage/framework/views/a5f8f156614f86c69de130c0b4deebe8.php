@@ -98,8 +98,8 @@
 
 <style>
     .py-8 {
-        padding-top: 6rem !important;
-        padding-bottom: 6rem !important;
+        padding-top: 5rem !important;
+        padding-bottom: 5rem !important;
     }
 </style>
 

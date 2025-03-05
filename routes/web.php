@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 
-// Bagian Backend
+// _________________________BACKEND_____________________________//
+// =============================================================//
+
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Backend\LoginController;
 // use App\Http\Controllers\Backend\RegisterController;
@@ -21,7 +23,9 @@ use App\Http\Controllers\Backend\DataSiswa\KelasSepuluh\KelasSepuluhController;
 use App\Http\Controllers\Backend\DataSiswa\KelasSebelas\Kelas11Controller;
 use App\Http\Controllers\Backend\DataSiswa\KelasDuabelas\Kelas12Controller;
 
-// Bagian Fontend
+// ___________________________FRONTEND____________________________________//
+// =======================================================================//
+
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsController;
 use App\Http\Controllers\Frontend\Galery\GalleryController;
@@ -39,6 +43,14 @@ use App\Http\Controllers\Frontend\Soal\Numerik\SoalNumerikController;
 use App\Http\Controllers\Frontend\Soal\BahasaInggris\SoalBahasaInggrisController;
 use App\Http\Controllers\Frontend\Soal\PilihanSoal\PilihanSoalController;
 use App\Http\Controllers\Frontend\Soal\Petunjuk\PetunjukController;
+
+
+//____________________________ DASHBOARD PPDB SISWA BARU___________________________//
+// ================================================================================//
+
+use App\Http\Controllers\Backend\PPDB\Dashboard\AppSiswaController;
+
+
 // DATA ROUTE BAGIAN BACKEND
 
 Route::get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
@@ -218,3 +230,10 @@ Route::get('/petunjuk', [PetunjukController::class, 'index'])->name('petunjuk.in
 Route::get('/soal-verbal', [SoalVerbalController::class, 'index'])->name('soal-verbal.index');
 Route::get('/soal-numerik', [SoalNumerikController::class, 'index'])->name('soal-numerik.index');
 Route::get('/soal-bahasa-inggris', [SoalBahasaInggrisController::class, 'index'])->name('soal-bahasa-inggris.index');
+
+
+
+// ______________________DASHBOARD PPDB SISWA BARU____________________________//
+// ===========================================================================//
+
+Route::get('/app', [AppSiswaController::class, 'index'])->name('app');
