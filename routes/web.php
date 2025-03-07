@@ -79,7 +79,7 @@ Route::prefix('admin')->group(function () {
     Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('admin.students.destroy');
 });
 
-Route::get('/create', [StudentController::class, 'create'])->name('students.create');
+// Route::get('/create', [StudentController::class, 'create'])->name('students.create');
 Route::post('/students', [StudentController::class, 'store'])->name('students.store');
 Route::get('student/{id}/download-pdf', [StudentController::class, 'downloadPdf'])->name('students.downloadPdf');
 
@@ -242,5 +242,7 @@ Route::get('/siswa/register_siswa', [RegisterSiswaController::class, 'index'])->
 Route::post('/calon-siswa/register', [RegisterSiswaController::class, 'store'])->name('calon_siswa.store');
 
 Route::get('/siswa/identitas_siswa', [IdentitasSiswaController::class, 'index'])->name('identitas_siswa.index');
-Route::post('/identitas_siswa', [IdentitasSiswaController::class, 'store'])->name('identitas_siswa.store');
+Route::post('/siswa/identitas_siswa', [IdentitasSiswaController::class, 'store'])->name('identitas_siswa.store');
+
 Route::get('/siswa/upload_dokumen', [DokumenSiswaController::class, 'index'])->name('upload_dokumen.index');
+Route::post('/siswa/upload_dokumen', [DokumenSiswaController::class, 'documen'])->name('upload_dokumen.documen');

@@ -102,7 +102,7 @@
                 <a data-bs-toggle="collapse" href="#sidebarLayouts"
                     class="{{ request()->routeIs('admin.students.index', 'admin.dokumen.index', 'hasil_seleksi.index') ? 'active' : '' }}">
                     <i class="fas fa-th-list"></i>
-                    <p>Data Siswa Baru</p>
+                    <p>Data Calon Siswa</p>
                     <span class="caret"></span>
                 </a>
                 <div class="collapse {{ request()->routeIs('admin.students.index', 'admin.dokumen.index', 'hasil_seleksi.index') ? 'show' : '' }}"
@@ -112,14 +112,14 @@
                             <a href="{{ route('admin.students.index') }}"
                                 class="{{ request()->routeIs('admin.students.index') ? 'active' : '' }}">
                                 <i class="fas fa-chalkboard-teacher"></i>
-                                <span class="absensi">Data Masuk Siswa Baru</span>
+                                <span class="absensi">Data Indentitas</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('admin.dokumen.index') }}"
                                 class="{{ request()->routeIs('admin.dokumen.index') ? 'active' : '' }}">
                                 <i class="fas fa-chalkboard-teacher"></i>
-                                <span class="absensi">Document Siswa Baru</span>
+                                <span class="absensi">Data Dokumen</span>
                             </a>
                         </li>
                         <li>

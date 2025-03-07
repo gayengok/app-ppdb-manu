@@ -11,7 +11,10 @@ class IdentitasSiswaController extends Controller
 {
     public function index()
     {
-        return view('backend.admin.pendaftaran.syarat-ppdb.data-identitas');
+        $notifications = Notification::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('backend.admin.pendaftaran.syarat-ppdb.data-identitas', compact('notifications'));
     }
 
     public function store(Request $request)
@@ -33,9 +36,10 @@ class IdentitasSiswaController extends Controller
             'no_hp_ortu' => 'required|string|max:15',
         ]);
 
-        $studentData = $request->except('_token');
-        $student = Student::create($studentData);
+        // Simpan data ke database
+        $student = Student::create($request->all());
 
+        // Simpan notifikasi
         Notification::create([
             'message' => '📋 Data pendaftaran ' . $student->nama_lengkap . ' telah masuk. Segera periksa untuk verifikasi!',
             'is_read' => false,

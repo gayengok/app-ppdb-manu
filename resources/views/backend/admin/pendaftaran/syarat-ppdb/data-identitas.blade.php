@@ -10,11 +10,10 @@
                             <h4 class="card-title mb-0">
                                 <i class="fas fa-newspaper"></i> FORM - IDENTITAS DIRI CALON SISWA
                             </h4>
-
                         </div>
 
                         <div class="bg-light p-3 rounded-3">
-                            <form action="#" method="POST">
+                            <form action="{{ route('identitas_siswa.store') }}" method="POST">
                                 @csrf
                                 <div class="row">
                                     <!-- Kolom Kiri -->
@@ -95,4 +94,52 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Popup Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: 'Pendaftaran Berhasil!',
+                text: "{{ session('success') }}",
+                icon: 'success',
+                iconColor: '#28A745',
+                background: '#ffffff',
+                color: '#333',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#28A745',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                },
+                backdrop: `
+                    rgba(0, 0, 0, 0.3)
+                `
+            });
+        @endif
+
+        // Popup Gagal
+        @if (session('error'))
+            Swal.fire({
+                title: 'Pendaftaran Gagal!',
+                text: "{{ session('error') }}",
+                icon: 'error',
+                iconColor: '#DC3545',
+                background: '#ffffff',
+                color: '#333',
+                confirmButtonText: 'Coba Lagi',
+                confirmButtonColor: '#DC3545',
+                showClass: {
+                    popup: 'animate__animated animate__shakeX'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOut'
+                },
+                backdrop: `
+                    rgba(0, 0, 0, 0.3)
+                `
+            });
+        @endif
+    </script>
 @endsection

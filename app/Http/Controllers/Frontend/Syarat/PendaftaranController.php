@@ -12,40 +12,6 @@ use App\Models\Artikel;
 
 class PendaftaranController extends Controller
 {
-    public function showForm()
-    {
-        $artikel = Artikel::where('status', 'Published')
-            ->orderBy('published_date', 'desc')
-            ->first();
-
-        return view('frontend.students.syarat-pendaftaran', compact('artikel'));
-    }
-
-    // Menyimpan Dokumen
-    public function syarat(Request $request)
-    {
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'kk' => 'required|file|mimes:jpg,png,pdf|max:2048',
-            'akta_kelahiran' => 'required|file|mimes:jpg,png,pdf|max:2048',
-            'kip_pkh' => 'nullable|file|mimes:jpg,png,pdf|max:2048',
-            'ktp_ortu' => 'required|file|mimes:jpg,png,pdf|max:2048',
-            'ijazah_skl' => 'required|file|mimes:jpg,png,pdf|max:2048',
-        ]);
-
-        $dokumens = Dokumen::create([
-            'nama' => $request->input('nama'),
-            'kk' => $request->file('kk')->store('uploads/documents', 'public'),
-            'akta_kelahiran' => $request->file('akta_kelahiran')->store('uploads/documents', 'public'),
-            'kip_pkh' => $request->file('kip_pkh') ? $request->file('kip_pkh')->store('uploads/documents', 'public') : null,
-            'ktp_ortu' => $request->file('ktp_ortu')->store('uploads/documents', 'public'),
-            'ijazah_skl' => $request->file('ijazah_skl')->store('uploads/documents', 'public'),
-        ]);
-
-        return redirect()->route('syarat.form')->with('success', 'Dokumen berhasil diunggah.');
-    }
-
-
     public function showDokumen(Request $request)
     {
         $query = Dokumen::query();

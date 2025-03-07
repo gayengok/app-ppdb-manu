@@ -111,7 +111,7 @@
                         <p>
                         </p>
                         <div class="text-center text-lg-start mt-4">
-                            <a href="{{ route('students.create') }}"
+                            <a href="{{ route('login_siswa') }}"
                                 class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center"
                                 style="background-color: green; color: white;">
                                 <span>Daftar Sekarang</span>
@@ -281,7 +281,7 @@
                         <h3>Pembukaan Pendaftaran</h3>
                         @forelse ($uploadpendaftarans as $index => $item)
                             <p>{{ $item->deskripsi }}</p>
-                            <a href="{{ route('students.create') }}" class="read-more">
+                            <a href="#" class="read-more">
                                 <span>Detail Pendaftaran</span>
                                 <i class="bi bi-arrow-right"></i>
                             </a>
@@ -300,7 +300,7 @@
                         <p>Calon siswa wajib menyerahkan fotokopi KK, Akta Kelahiran, Kartu KIP/PKH (jika ada), KTP
                             orang tua, dan Ijazah/SKL.
                         </p>
-                        <a href="{{ route('syarat.form') }}" class="read-more"><span>Lihat Syarat Lengkap</span> <i
+                        <a href="#" class="read-more"><span>Lihat Syarat Lengkap</span> <i
                                 class="bi bi-arrow-right"></i></a>
                     </div>
                 </div>

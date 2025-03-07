@@ -48,6 +48,13 @@
             <!-- Pengaturan -->
             <li class="nav-item">
                 <a href="#">
+                    <i class="fas fa-bullhorn"></i>
+                    <p>Pengumuman</p>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#">
                     <i class="fas fa-cogs"></i>
                     <p>Pengaturan</p>
                 </a>

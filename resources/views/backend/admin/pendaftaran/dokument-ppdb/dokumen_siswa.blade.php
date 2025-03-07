@@ -13,7 +13,8 @@
                         </div>
 
                         <div class="bg-white p-4 rounded-3 shadow-sm">
-                            <form action="#" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('upload_dokumen.documen') }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <!-- Judul Upload Dokumen -->
                                 {{-- <h4 class="text-center mb-4" style="font-weight: bold;">Upload Dokumen Persyaratan</h4> --}}
@@ -75,4 +76,52 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Popup Sukses
+        @if (session('success'))
+            Swal.fire({
+                title: 'Pendaftaran Berhasil!',
+                text: "{{ session('success') }}",
+                icon: 'success',
+                iconColor: '#28A745',
+                background: '#ffffff',
+                color: '#333',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#28A745',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                },
+                backdrop: `
+                    rgba(0, 0, 0, 0.3)
+                `
+            });
+        @endif
+
+        // Popup Gagal
+        @if (session('error'))
+            Swal.fire({
+                title: 'Pendaftaran Gagal!',
+                text: "{{ session('error') }}",
+                icon: 'error',
+                iconColor: '#DC3545',
+                background: '#ffffff',
+                color: '#333',
+                confirmButtonText: 'Coba Lagi',
+                confirmButtonColor: '#DC3545',
+                showClass: {
+                    popup: 'animate__animated animate__shakeX'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOut'
+                },
+                backdrop: `
+                    rgba(0, 0, 0, 0.3)
+                `
+            });
+        @endif
+    </script>
 @endsection

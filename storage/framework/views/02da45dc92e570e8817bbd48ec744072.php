@@ -85,6 +85,23 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="container mt-5">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <i class="fas fa-bullhorn"></i> INFO PENGUMUMAN
+                </div>
+                <div class="card-body text-center">
+                    <h5>Selamat <strong>LUTFI HENDRIANTO</strong> <span class="badge bg-success">LULUS</span></h5>
+                    <p>Seleksi Sebagai Calon Peserta Didik Baru <strong>MAN 2 SITUBONDO</strong>, Silahkan Cetak Surat
+                        Pengumuman Sebagai Bukti Lulus Seleksi.</p>
+                    <hr>
+                    <a href="#" class="btn btn-success"><i class="fas fa-print"></i> Cetak Bukti Lulus</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 <?php /**PATH E:\PROJECT WEB SKRIPSI\PPDB_MA_NU_LU\resources\views/backend/admin/menu/page-inner.blade.php ENDPATH**/ ?>

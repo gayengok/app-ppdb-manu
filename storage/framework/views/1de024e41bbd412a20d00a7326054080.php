@@ -13,7 +13,8 @@
                         </div>
 
                         <div class="bg-white p-4 rounded-3 shadow-sm">
-                            <form action="#" method="POST" enctype="multipart/form-data">
+                            <form action="<?php echo e(route('upload_dokumen.documen')); ?>" method="POST"
+                                enctype="multipart/form-data">
                                 <?php echo csrf_field(); ?>
                                 <!-- Judul Upload Dokumen -->
                                 
@@ -75,6 +76,54 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Popup Sukses
+        <?php if(session('success')): ?>
+            Swal.fire({
+                title: 'Pendaftaran Berhasil!',
+                text: "<?php echo e(session('success')); ?>",
+                icon: 'success',
+                iconColor: '#28A745',
+                background: '#ffffff',
+                color: '#333',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#28A745',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                },
+                backdrop: `
+                    rgba(0, 0, 0, 0.3)
+                `
+            });
+        <?php endif; ?>
+
+        // Popup Gagal
+        <?php if(session('error')): ?>
+            Swal.fire({
+                title: 'Pendaftaran Gagal!',
+                text: "<?php echo e(session('error')); ?>",
+                icon: 'error',
+                iconColor: '#DC3545',
+                background: '#ffffff',
+                color: '#333',
+                confirmButtonText: 'Coba Lagi',
+                confirmButtonColor: '#DC3545',
+                showClass: {
+                    popup: 'animate__animated animate__shakeX'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOut'
+                },
+                backdrop: `
+                    rgba(0, 0, 0, 0.3)
+                `
+            });
+        <?php endif; ?>
+    </script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('backend.admin.app.app_siswa', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\PROJECT WEB SKRIPSI\PPDB_MA_NU_LU\resources\views/backend/admin/pendaftaran/dokument-ppdb/dokumen_siswa.blade.php ENDPATH**/ ?>

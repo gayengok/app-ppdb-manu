@@ -37,8 +37,6 @@
     <link rel="stylesheet" href="<?php echo e(asset('backend/assets/css/bootstrap.min.css')); ?>" />
     <link rel="stylesheet" href="<?php echo e(asset('backend/assets/css/plugins.min.css')); ?>" />
     <link rel="stylesheet" href="<?php echo e(asset('backend/assets/css/kaiadmin.min.css')); ?>" />
-
-
     <link rel="stylesheet" href="<?php echo e(asset('backend/assets/css/demo.css')); ?>" />
 </head>
 
@@ -105,6 +103,8 @@
                 <?php echo $__env->make('backend.admin.menu.page-inner', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
             </div>
+
+
 
             <div class="container">
 

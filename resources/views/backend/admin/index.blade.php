@@ -37,8 +37,6 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/css/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/css/kaiadmin.min.css') }}" />
-
-
     <link rel="stylesheet" href="{{ asset('backend/assets/css/demo.css') }}" />
 </head>
 
@@ -105,6 +103,8 @@
                 @include('backend.admin.menu.page-inner')
 
             </div>
+
+
 
             <div class="container">
 
