@@ -9,6 +9,6 @@ class AppSiswaController extends Controller
 {
     public function index()
     {
-        return view('backend.ppdb.index');
+        return view('backend.admin.index');
     }
 }

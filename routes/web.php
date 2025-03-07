@@ -49,6 +49,10 @@ use App\Http\Controllers\Frontend\Soal\Petunjuk\PetunjukController;
 // ================================================================================//
 
 use App\Http\Controllers\Backend\PPDB\Dashboard\AppSiswaController;
+use App\Http\Controllers\Backend\PPDB\Auth\Login\UserSiswaController;
+use App\Http\Controllers\Backend\PPDB\Auth\Register\RegisterSiswaController;
+use App\Http\Controllers\Backend\PPDB\Dashboard\Siswa\IdentitasSiswaController;
+use App\Http\Controllers\Backend\PPDB\Dashboard\Siswa\DokumenSiswaController;
 
 
 // DATA ROUTE BAGIAN BACKEND
@@ -60,16 +64,10 @@ Route::get('/notifications/mark-as-read', function () {
     return Redirect::back();
 })->name('notifications.markAsRead');
 
-// Route untuk menampilkan halaman login
+//Halaman login ADMIN
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.process');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
-
-// Register routes
-// Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-// Route::post('/register', [RegisterController::class, 'register'])->name('register.process');
-
-// BAGIAN RESET PASSWORD
 
 // Profil 
 Route::middleware('auth')->get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -237,3 +235,12 @@ Route::get('/soal-bahasa-inggris', [SoalBahasaInggrisController::class, 'index']
 // ===========================================================================//
 
 Route::get('/app', [AppSiswaController::class, 'index'])->name('app');
+
+Route::get('/siswa/login_siswa', [UserSiswaController::class, 'index'])->name('login_siswa');
+Route::post('/siswa/login_siswa', [UserSiswaController::class, 'login'])->name('login_siswa.login');
+Route::get('/siswa/register_siswa', [RegisterSiswaController::class, 'index'])->name('register_siswa.index');
+Route::post('/calon-siswa/register', [RegisterSiswaController::class, 'store'])->name('calon_siswa.store');
+
+Route::get('/siswa/identitas_siswa', [IdentitasSiswaController::class, 'index'])->name('identitas_siswa.index');
+Route::post('/identitas_siswa', [IdentitasSiswaController::class, 'store'])->name('identitas_siswa.store');
+Route::get('/siswa/upload_dokumen', [DokumenSiswaController::class, 'index'])->name('upload_dokumen.index');
