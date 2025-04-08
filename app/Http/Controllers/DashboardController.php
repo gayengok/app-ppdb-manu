@@ -11,12 +11,15 @@ use App\Models\KelasSepuluh;
 use App\Models\kelasSebelas;
 use App\Models\KelasDuaBelas;
 use App\Models\Notification;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
     public function show()
     {
         $user = Auth::user();
+
+
         $jumlahGuru = Guru::count();
         $notifications = Notification::where('is_read', false)
             ->orderBy('created_at', 'desc')

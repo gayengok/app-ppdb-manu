@@ -28,10 +28,6 @@
         <meta property="og:title" content="Video MA NU LUTHFUL ULUM">
         <meta property="og:description" content="Kumpulan video dokumentasi kegiatan MA NU Luthful Ulum.">
         <meta property="og:image" content="<?php echo e(asset('frontend/assets/img/logo-MA.png')); ?>">
-    <?php elseif(Request::is('pengumuman')): ?>
-        <meta property="og:title" content="Pengumuman MA NU LUTHFUL ULUM">
-        <meta property="og:description" content="Informasi penting dan terbaru dari MA NU Luthful Ulum.">
-        <meta property="og:image" content="<?php echo e(asset('frontend/assets/img/logo-MA.png')); ?>">
     <?php elseif(Request::is('sejarah')): ?>
         <meta property="og:title" content="Sejarah MA NU LUTHFUL ULUM">
         <meta property="og:description"

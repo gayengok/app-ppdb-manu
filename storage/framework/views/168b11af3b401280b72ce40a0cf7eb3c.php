@@ -1,0 +1,338 @@
+
+
+<?php $__env->startSection('content'); ?>
+    <div class="container">
+        <div class="page-inner">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-header bg-gradient-primary text-white py-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h4 class="card-title mb-0 font-weight-bold">
+                                    <i class="fas fa-edit mr-2"></i> Edit Video
+                                </h4>
+                                <a href="<?php echo e(route('videos.index')); ?>" class="btn btn-light btn-sm">
+                                    <i class="fas fa-arrow-left mr-1"></i> Kembali
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-4">
+                            <form action="<?php echo e(route('videos.update', $video->id)); ?>" method="POST">
+                                <?php echo csrf_field(); ?>
+                                <?php echo method_field('PUT'); ?>
+
+                                <div class="form-group mb-4">
+                                    <label for="title" class="form-label text-muted">Judul Video</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-white">
+                                                <i class="fas fa-heading text-primary"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" name="title" id="title"
+                                            class="form-control shadow-sm border-0 bg-light py-2 px-3"
+                                            value="<?php echo e(old('title', $video->title)); ?>" required>
+                                    </div>
+                                    <?php $__errorArgs = ['title'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="text-danger mt-2">
+                                            <i class="fas fa-exclamation-circle mr-1"></i>
+                                            <?php echo e($message); ?>
+
+                                        </div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label for="video_link" class="form-label text-muted">Link Video YouTube</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-white">
+                                                <i class="fab fa-youtube text-danger"></i>
+                                            </span>
+                                        </div>
+                                        <input type="url" name="video_link" id="video_link"
+                                            class="form-control shadow-sm border-0 bg-light py-2 px-3"
+                                            value="<?php echo e(old('video_link', $video->video_link)); ?>" required>
+                                    </div>
+                                    <?php $__errorArgs = ['video_link'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div class="text-danger mt-2">
+                                            <i class="fas fa-exclamation-circle mr-1"></i>
+                                            <?php echo e($message); ?>
+
+                                        </div>
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div class="mt-4 mb-3" id="video-preview-container">
+                                    <label class="form-label text-muted">Preview Video</label>
+                                    <?php
+                                        $videoId = null;
+                                        if (
+                                            preg_match(
+                                                '/(?:youtube\.com\/(?:[^\/\n\s]*\/\S+\/|(?:v|e(?:mbed)?)\/|watch\?v=)|youtu\.be\/)([^\s\/?&]+)/i',
+                                                $video->video_link,
+                                                $matches,
+                                            )
+                                        ) {
+                                            $videoId = $matches[1] ?? null;
+                                        }
+                                    ?>
+
+                                    <div
+                                        class="video-preview-placeholder text-center py-5 bg-light rounded <?php echo e($videoId ? 'd-none' : ''); ?>">
+                                        <i class="fas fa-film text-muted mb-3" style="font-size: 48px;"></i>
+                                        <p class="text-muted">Masukkan link YouTube untuk menampilkan preview</p>
+                                    </div>
+
+                                    <div class="video-preview-frame <?php echo e($videoId ? '' : 'd-none'); ?>">
+                                        <div class="embed-responsive embed-responsive-16by9 rounded shadow-sm">
+                                            <iframe id="youtube-preview" class="embed-responsive-item"
+                                                src="<?php echo e($videoId ? 'https://www.youtube.com/embed/' . $videoId : ''); ?>"
+                                                allowfullscreen></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-5">
+                                    <div class="card bg-light border-0 shadow-sm">
+                                        <div class="card-body">
+                                            <h6 class="text-muted mb-3">
+                                                <i class="fas fa-info-circle mr-1"></i> Informasi Video
+                                            </h6>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <p class="mb-1 text-muted small">Tanggal Dibuat</p>
+                                                    <p class="font-weight-bold">
+                                                        <?php echo e($video->created_at->format('d M Y, H:i')); ?></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p class="mb-1 text-muted small">Terakhir Diperbarui</p>
+                                                    <p class="font-weight-bold">
+                                                        <?php echo e($video->updated_at->format('d M Y, H:i')); ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-outline-danger px-4" data-toggle="modal"
+                                        data-target="#deleteModal">
+                                        <i class="fas fa-trash-alt mr-1"></i> Hapus Video
+                                    </button>
+
+                                    <div>
+                                        <a href="<?php echo e(route('videos.index')); ?>"
+                                            class="btn btn-light bg-secondary text-white mr-2">
+                                            <i class="fas fa-times mr-1"></i> Batal
+                                        </a>
+                                        <button type="submit" class="btn btn-primary px-4">
+                                            <i class="fas fa-save mr-1"></i> Simpan Perubahan
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Hapus -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin menghapus video ini?</p>
+                    <p class="font-weight-bold"><?php echo e($video->title); ?></p>
+                    <p class="text-danger"><i class="fas fa-exclamation-triangle mr-1"></i> Tindakan ini tidak dapat
+                        dibatalkan.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <form action="<?php echo e(route('videos.destroy', $video->id)); ?>" method="POST">
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('DELETE'); ?>
+                        <button type="submit" class="btn btn-danger">Hapus Permanen</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        }
+
+        .form-control:focus {
+            border-color: #4e73df;
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+        }
+
+        .btn-light {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-light:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .btn-primary {
+            background: #4e73df;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #3a5fc8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .input-group-text {
+            border: none;
+        }
+
+        .form-control {
+            border-radius: 0 5px 5px 0 !important;
+        }
+
+        .shadow-sm {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        .video-preview-placeholder {
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .video-preview-placeholder:hover {
+            border-color: #4e73df;
+            background-color: #f8f9fc;
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoLink = document.getElementById('video_link');
+            const previewContainer = document.getElementById('video-preview-container');
+            const previewPlaceholder = document.querySelector('.video-preview-placeholder');
+            const previewFrame = document.querySelector('.video-preview-frame');
+            const youtubePreview = document.getElementById('youtube-preview');
+
+            videoLink.addEventListener('input', function() {
+                const youtubeUrl = this.value;
+                const videoId = extractYoutubeId(youtubeUrl);
+
+                if (videoId) {
+                    youtubePreview.src = `https://www.youtube.com/embed/${videoId}`;
+                    previewPlaceholder.classList.add('d-none');
+                    previewFrame.classList.remove('d-none');
+                } else {
+                    previewPlaceholder.classList.remove('d-none');
+                    previewFrame.classList.add('d-none');
+                }
+            });
+
+            function extractYoutubeId(url) {
+                const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+                const match = url.match(regExp);
+                return (match && match[7].length === 11) ? match[7] : false;
+            }
+
+            // Form validation with sweet alert
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const title = document.getElementById('title').value;
+                const link = document.getElementById('video_link').value;
+
+                if (!title || !link) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Form Tidak Lengkap',
+                        text: 'Silakan isi semua kolom yang diperlukan!',
+                        confirmButtonColor: '#4e73df'
+                    });
+                    return;
+                }
+
+                const videoId = extractYoutubeId(link);
+                if (!videoId) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Link YouTube Tidak Valid',
+                        text: 'Pastikan Anda memasukkan link YouTube yang valid!',
+                        confirmButtonColor: '#4e73df'
+                    });
+                    return;
+                }
+
+                Swal.fire({
+                    icon: 'question',
+                    title: 'Simpan Perubahan?',
+                    text: 'Anda akan mengubah data video ini',
+                    showCancelButton: true,
+                    confirmButtonColor: '#4e73df',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Ya, Simpan!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Menyimpan Perubahan...',
+                            text: 'Harap tunggu sebentar',
+                            showConfirmButton: false,
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                                setTimeout(() => {
+                                    form.submit();
+                                }, 800);
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('backend.dashboard.dashboard.dashboard', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\PROJECT WEB SKRIPSI\PPDB_MA_NU_LU\resources\views/backend/gallery/video/edit.blade.php ENDPATH**/ ?>

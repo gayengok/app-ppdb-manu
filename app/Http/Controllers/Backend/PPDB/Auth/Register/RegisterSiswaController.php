@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use App\Models\UserSiswa;
+use App\Models\CalonSiswa;
 
 class RegisterSiswaController extends Controller
 {
@@ -19,20 +19,20 @@ class RegisterSiswaController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'nik' => 'required|digits:16|unique:usersiswas,nik', // Sesuaikan dengan tabel yang benar
-            'email' => 'required|email|unique:usersiswas,email',
+            'nisn' => 'required|digits:10|unique:calon_siswas,nisn',
+            'email' => 'required|email|unique:calon_siswas,email',
             'password' => 'required|min:6|confirmed',
         ]);
 
-        $user = UserSiswa::create([
+        $user = CalonSiswa::create([
             'name' => $request->name,
-            'nik' => $request->nik,
+            'nisn' => $request->nisn,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        Auth::guard('usersiswa')->login($user);
+        Auth::guard('calonsiswa')->login($user);
 
-        return redirect()->route('app')->with('success', 'Registrasi berhasil, Anda telah login.');
+        return redirect()->route('login_siswa')->with('success', 'Registrasi berhasil, Anda telah login.');
     }
 }

@@ -6,15 +6,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Notification;
 use App\Models\Student;
+use App\Models\CalonSiswa;
+use Illuminate\Support\Facades\Auth;
 
 class IdentitasSiswaController extends Controller
 {
     public function index()
     {
+        $loggedInStudent = Auth::guard('calonsiswa')->user();
+
+        if (!$loggedInStudent) {
+            return redirect()->route('login_siswa')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+
         $notifications = Notification::where('is_read', false)
             ->orderBy('created_at', 'desc')
             ->get();
-        return view('backend.admin.pendaftaran.syarat-ppdb.data-identitas', compact('notifications'));
+        return view('backend.admin.pendaftaran.syarat-ppdb.data-identitas', compact('notifications', 'loggedInStudent'));
     }
 
     public function store(Request $request)

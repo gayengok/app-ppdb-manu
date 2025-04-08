@@ -4,181 +4,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Siswa</title>
+    <title>Detail Siswa - MA NU Luthful Ulum</title>
     <style>
-        /* Reset margin dan padding */
-        * {
+        body {
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f1f1f1;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #040504;
-            font-size: 30px;
-            margin-bottom: 20px;
-            font-weight: 600;
+            background-color: #fff;
+            color: #000;
         }
 
         .container {
-            max-width: 800px;
+            width: 100%;
+            max-width: 210mm;
             margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 0;
         }
 
-        .table-header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
+        .header {
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.5em;
+            padding: 20px 0;
+            border-bottom: 3px solid #006400;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-center {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .logo-center img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .school-title {
+            text-align: center;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .school-title h2 {
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 26px;
+            font-weight: bold;
+            color: #006400;
+        }
+
+        h1 {
+            margin: 0 !important;
+            padding: 0 !important;
+            font-size: 20px;
+            text-transform: uppercase;
+            color: #006400;
+        }
+
+        p {
+            margin: 2px 0 0;
+            font-size: 18px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .info-section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            background-color: #006400;
+            color: white;
+            padding: 8px 10px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         th,
         td {
-            padding: 12px 15px;
+            padding: 8px 10px;
             text-align: left;
-            border-bottom: 1px solid #f1f1f1;
+            border: 1px solid #ddd;
         }
 
         th {
-            background-color: #4CAF50;
-            color: white;
+            width: 35%;
+            background-color: #f0f0f0;
             font-weight: bold;
-            text-align: center;
         }
 
-        td {
-            background-color: #f9f9f9;
-            color: #555;
+
+        .footer {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
         }
 
-        tr:nth-child(even) td {
-            background-color: #f2f2f2;
-        }
-
-        tr:hover td {
-            background-color: #e1e1e1;
-        }
-
-        .table-footer {
-            text-align: right;
+        .print-date {
+            font-size: 12px;
             font-style: italic;
-            color: #777;
         }
 
-        .page-break {
-            page-break-before: always;
-        }
 
-        /* Media Query untuk Tampilan Layar */
-        @media screen and (max-width: 768px) {
-
-            table,
-            th,
-            td {
-                padding: 8px;
-            }
-
-            th,
-            td {
-                font-size: 14px;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-        }
-
-        /* Gaya Khusus untuk Print */
+        /* Ensure consistent printing */
         @media print {
             body {
-                background-color: #fff;
-                color: #000;
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
                 padding: 0;
             }
 
-            .container {
-                width: 100%;
-                margin: 0;
-                padding: 10px;
-                box-shadow: none;
-            }
-
-            .table-header {
-                font-size: 1.5em;
-                background-color: #4CAF50;
-                color: white;
-                text-align: center;
-                margin-top: 0;
-                border-radius: 5px;
-            }
-
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 0;
-            }
-
-            th,
-            td {
-                padding: 12px;
-                font-size: 14px;
+            .section-title {
+                background-color: #006400 !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
             th {
-                background-color: #4CAF50;
-                color: white;
+                background-color: #f0f0f0 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
-            td {
-                background-color: #f9f9f9;
-                color: #555;
-            }
-
-            tr:nth-child(even) td {
-                background-color: #f2f2f2;
-            }
-
-            tr:hover td {
-                background-color: transparent;
-            }
-
-            .page-break {
-                page-break-before: always;
-            }
-
-            h1 {
-                font-size: 28px;
-                margin-top: 20px;
-            }
-
-            .table-footer {
-                font-size: 12px;
-                text-align: right;
-                font-style: italic;
-                color: #777;
+            @page {
+                size: A4;
+                margin: 1cm;
             }
         }
     </style>
@@ -186,63 +158,84 @@
 
 <body>
     <div class="container">
-        <div class="table-header">
-            <h1>Detail - Siswa Baru</h1>
+        <div class="header">
+            <div class="logo-area">
+                <div class="logo-center">
+                    <img src="{{ public_path('backend/assets/img/logo-MA.png') }}" alt="Logo MA NU Luthful Ulum">
+                </div>
+                <div class="school-title">
+                    <h2>MA NU LUTHFUL ULUM</h2>
+                    <h1>Data Identitas Siswa Baru {{ date('Y') }}/{{ date('Y') + 1 }}</h1>
+                </div>
+            </div>
         </div>
-        <div class="table-responsive">
-            <table>
-                <tr>
-                    <th>Nama Lengkap</th>
-                    <td>{{ $student->nama_lengkap }}</td>
-                </tr>
-                <tr>
-                    <th>Nama Panggilan</th>
-                    <td>{{ $student->nama_panggilan }}</td>
-                </tr>
-                <tr>
-                    <th>Tempat, Tanggal Lahir</th>
-                    <td>{{ $student->tempat_lahir }}, {{ $student->tanggal_lahir }}</td>
-                </tr>
-                <tr>
-                    <th>Jenis Kelamin</th>
-                    <td>{{ $student->jenis_kelamin }}</td>
-                </tr>
-                <tr>
-                    <th>Alamat Tempat Tinggal</th>
-                    <td>{{ $student->alamat }}</td>
-                </tr>
-                <tr>
-                    <th>Kabupaten</th>
-                    <td>{{ $student->kabupaten }}</td>
-                </tr>
-                <tr>
-                    <th>Email Aktif</th>
-                    <td>{{ $student->email }}</td>
-                </tr>
-                <tr>
-                    <th>No. HP/WhatsApp</th>
-                    <td>{{ $student->no_hp }}</td>
-                </tr>
-                <tr>
-                    <th>Sekolah Asal</th>
-                    <td>{{ $student->sekolah_asal }}</td>
-                </tr>
-                <tr>
-                    <th>Nama Ayah</th>
-                    <td>{{ $student->nama_ayah }}</td>
-                </tr>
-                <tr>
-                    <th>Nama Ibu</th>
-                    <td>{{ $student->nama_ibu }}</td>
-                </tr>
-                <tr>
-                    <th>No. HP/WhatsApp Orang Tua</th>
-                    <td>{{ $student->no_hp_ortu }}</td>
-                </tr>
-            </table>
-        </div>
-        <div class="table-footer">
-            <p>Dicetak pada: {{ date('Y-m-d H:i:s') }}</p>
+
+        <div class="content">
+            <div class="info-section">
+                <div class="section-title">Data Pribadi Siswa</div>
+                <table>
+                    <tr>
+                        <th>Nama Lengkap</th>
+                        <td>{{ $student->nama_lengkap }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nama Panggilan</th>
+                        <td>{{ $student->nama_panggilan }}</td>
+                    </tr>
+                    <tr>
+                        <th>Tempat, Tanggal Lahir</th>
+                        <td>{{ $student->tempat_lahir }}, {{ $student->tanggal_lahir }}</td>
+                    </tr>
+                    <tr>
+                        <th>Jenis Kelamin</th>
+                        <td>{{ $student->jenis_kelamin }}</td>
+                    </tr>
+                    <tr>
+                        <th>Alamat Tempat Tinggal</th>
+                        <td>{{ $student->alamat }}</td>
+                    </tr>
+                    <tr>
+                        <th>Kabupaten</th>
+                        <td>{{ $student->kabupaten }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email Aktif</th>
+                        <td>{{ $student->email }}</td>
+                    </tr>
+                    <tr>
+                        <th>No. HP/WhatsApp</th>
+                        <td>{{ $student->no_hp }}</td>
+                    </tr>
+                    <tr>
+                        <th>Sekolah Asal</th>
+                        <td>{{ $student->sekolah_asal }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="info-section">
+                <div class="section-title">Data Orang Tua</div>
+                <table>
+                    <tr>
+                        <th>Nama Ayah</th>
+                        <td>{{ $student->nama_ayah }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nama Ibu</th>
+                        <td>{{ $student->nama_ibu }}</td>
+                    </tr>
+                    <tr>
+                        <th>No. HP/WhatsApp Orang Tua</th>
+                        <td>{{ $student->no_hp_ortu }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="footer">
+                <div class="print-date">
+                    Dicetak pada: {{ date('d-m-Y H:i:s') }}
+                </div>
+            </div>
         </div>
     </div>
 </body>

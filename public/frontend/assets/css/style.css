@@ -27,7 +27,7 @@ a {
 }
 
 a:hover {
-  color: #717ff5;
+  /* color: #717ff5; */
   text-decoration: none;
 }
 
@@ -44,21 +44,39 @@ h6 {
 # Sections
 --------------------------------------------------------------*/
 section {
-  padding: 60px 0;
-  overflow: hidden;
+  padding: 75px 0;
+  /* overflow: hidden; */
+}
+
+@media (max-width: 768px) { 
+  section {
+    padding: 10px 0; 
+  }
+}
+
+@media (max-width: 480px) { 
+  section {
+    padding: 10px 0;
+  }
 }
 
 .section-header {
   text-align: center;
-  padding-bottom: 40px;
+  padding-bottom: 80px;
 }
 
+@media (max-width: 768px) {
+  .section-header {
+      text-align: center;
+      padding-bottom: 30px;
+  }
+}
 .section-header h2 {
   font-size: 13px;
   letter-spacing: 1px;
   font-weight: 700;
   margin: 0;
-  color: #4154f1;
+  color: #218838;
   text-transform: uppercase;
 }
 
@@ -85,7 +103,8 @@ section {
 
 .berita-terkini {
   text-align: center;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
+  margin-top: 30px;
 }
 
 .berita-terkini h2 {
@@ -110,7 +129,7 @@ section {
   .berita-terkini p {
     font-size: 28px;
     position: relative;
-    top: -310px;
+    top: -250px;
   }
 }
 
@@ -120,7 +139,7 @@ section {
   .py-5 {
     padding-top: 1rem; 
     padding-bottom: 1rem; 
-    margin-top: -350px; 
+    margin-top: -250px; 
   }
 }
 /*--------------------------------------------------------------
@@ -223,7 +242,7 @@ section {
   z-index: 997;
   padding: 15px 0;
   position: fixed; 
-  top: -5px; 
+  top: -7px; 
   left: 0;
   width: 100%; 
   transition: all 0.3s ease; 
@@ -732,37 +751,35 @@ section {
 # Counts
 --------------------------------------------------------------*/
 .counts {
-  padding: 10px 0 60px;
+  /* padding: 10px 0 60px; */
   margin-bottom: -30px;
 }
 
 @media (max-width: 767px) {
   .counts {
-    padding: 10px 0 20px; 
+    padding: 50px 0 310px; 
     margin-bottom: -50px;
-    position: relative;
-    top: -380px;
+    top: -300px;
   }
 }
 
 .counts .count-box {
   display: flex;
-  align-items: center;
-  padding: 30px;
+  /* align-items: center; */
+  padding: 0px;
   width: 100%;
   background: #fff;
   box-shadow: 0px 0 30px rgba(1, 41, 112, 0.08);
 }
 
 .counts .count-box i {
-  font-size: 42px;
   line-height: 0;
   margin-right: 20px;
   color: #4154f1;
 }
 
 .counts .count-box span {
-  font-size: 36px;
+  font-size: 16px;
   display: block;
   font-weight: 600;
   color: #0b198f;

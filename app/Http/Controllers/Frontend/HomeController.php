@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Pengumuman;
 use App\Models\UploadPendaftaran;
 use App\Models\Photo;
 use App\Models\Artikel;
@@ -23,7 +22,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $pengumuman = Pengumuman::all();
         $uploadpendaftarans = UploadPendaftaran::all();
         $photos = Photo::orderBy('created_at', 'desc')->paginate(3);
         $artikels = Artikel::where('status', 'Published')
@@ -44,7 +42,6 @@ class HomeController extends Controller
         $totalSiswa = $totalSiswaKelas10 + $totalSiswaKelas11 + $totalSiswaKelas12;
 
         return view('frontend.pages.landingpage', compact(
-            'pengumuman',
             'uploadpendaftarans',
             'photos',
             'artikels',

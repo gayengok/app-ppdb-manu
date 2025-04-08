@@ -23,6 +23,14 @@ class Student extends Model
         'sekolah_asal',
         'nama_ayah',
         'nama_ibu',
+        'status',
+        'updated_at',
+        'user_id',
         'no_hp_ortu'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

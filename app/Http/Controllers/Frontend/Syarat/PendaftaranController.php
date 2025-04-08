@@ -21,7 +21,7 @@ class PendaftaranController extends Controller
         }
 
         $user = Auth::user();
-        $dokumens = $query->orderBy('created_at', 'asc')->paginate(5);
+        $dokumens = $query->orderBy('created_at', 'asc')->paginate(10);
         $notifications = Notification::where('is_read', false)
             ->orderBy('created_at', 'desc')
             ->get();

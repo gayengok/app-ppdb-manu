@@ -23,13 +23,12 @@
     <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
         <div class="container-fluid">
             <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="submit" class="btn btn-search pe-1">
-                            <i class="fa fa-search search-icon"></i>
-                        </button>
-                    </div>
-                    <input type="text" placeholder="Search ..." class="form-control" />
+                <!-- Added marquee for scrolling welcome text -->
+                <div class="ms-3 flex-grow-1">
+                    <marquee behavior="scroll" direction="left" scrollamount="3" class="text-primary fw-bold"
+                        style="font-size: 20px;">
+                        Selamat Datang Di MA NU Luthful Ulum
+                    </marquee>
                 </div>
             </nav>
 
@@ -204,9 +203,6 @@
                     </div> --}}
                 </li>
 
-
-
-
                 <li class="nav-item topbar-user dropdown hidden-caret">
                     <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
                         aria-expanded="false">
@@ -219,6 +215,7 @@
                             <span class="fw-bold">{{ $user->name }}</span>
                         </span>
                     </a>
+
                     <ul class="dropdown-menu dropdown-user animated fadeIn">
                         <div class="dropdown-user-scroll scrollbar-outer">
                             <li>
@@ -237,7 +234,14 @@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">My Profile</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+
+                                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-dark">
+                                        Logout
+                                    </button>
+                                </form>
+                                {{-- <a class="dropdown-item" href="">Logout</a> --}}
                             </li>
                         </div>
                     </ul>

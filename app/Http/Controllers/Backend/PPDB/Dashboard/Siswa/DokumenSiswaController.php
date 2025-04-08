@@ -5,12 +5,21 @@ namespace App\Http\Controllers\Backend\PPDB\Dashboard\Siswa;
 use App\Http\Controllers\Controller;
 use App\Models\Dokumen;
 use Illuminate\Http\Request;
+use App\Models\CalonSiswa;
+use Illuminate\Support\Facades\Auth;
 
 class DokumenSiswaController extends Controller
 {
     public function index()
     {
-        return view('backend.admin.pendaftaran.dokument-ppdb.dokumen_siswa');
+        $loggedInStudent = Auth::guard('calonsiswa')->user();
+
+        if (!$loggedInStudent) {
+            return redirect()->route('login_siswa')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+
+        return view('backend.admin.pendaftaran.dokument-ppdb.dokumen_siswa', compact('loggedInStudent'));
     }
 
     // Menyimpan Dokumen

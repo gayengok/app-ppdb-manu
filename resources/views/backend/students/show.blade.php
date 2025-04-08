@@ -8,7 +8,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title mb-0">
-                                <i class="fas fa-newspaper"></i> Detail - Siswa Baru
+                                <i class="fas fa-newspaper"></i> Detail - Data Identitas Calon Siswa
                             </h4>
                         </div>
                         <div class="card-body">
@@ -72,7 +72,7 @@
 
                             <!-- Tombol download PDF -->
                             <a href="{{ route('students.downloadPdf', $student->id) }}" class="btn btn-primary">
-                                <i class="fas fa-download"></i> Download PDF
+                                <i class="fas fa-print"></i> Cetak
                             </a>
                         </div>
                     </div>

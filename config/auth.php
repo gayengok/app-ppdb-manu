@@ -45,6 +45,11 @@ return [
             'driver' => 'session',
             'provider' => 'usersiswa',
         ],
+
+        'calonsiswa' => [  // Tambahkan ini
+            'driver' => 'session',
+            'provider' => 'calonsiswa',
+        ],
     ],
 
     /*
@@ -70,9 +75,9 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        'usersiswa' => [ // Tambahkan provider ini
+        'calonsiswa' => [  // Tambahkan ini
             'driver' => 'eloquent',
-            'model' => App\Models\UserSiswa::class,
+            'model' => App\Models\CalonSiswa::class,
         ],
     ],
 

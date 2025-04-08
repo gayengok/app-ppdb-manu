@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('calon_siswas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('nik', 16)->unique();
+            $table->string('nisn', 10)->unique();
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();

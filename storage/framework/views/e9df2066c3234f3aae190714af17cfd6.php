@@ -9,19 +9,8 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title mb-0">
-                                <i class="fas fa-newspaper"></i> Data - Hasil Seleksi Siswa Baru
+                                <i class="fas fa-newspaper"></i> Verifikasi Data Calon Siswa
                             </h4>
-                            <div class="d-flex justify-content-between mb-3">
-                                <a href="<?php echo e(route('hasil_seleksi.printPDF')); ?>" class="btn btn-danger"
-                                    style="margin-right: 10px;">
-                                    <i class="fas fa-print"></i> Cetak PDF
-                                </a>
-
-                                <!-- Tombol untuk tambah data -->
-                                <a href="<?php echo e(route('hasil_seleksi.create')); ?>" class="btn btn-primary">
-                                    <i class="fas fa-plus"></i> Tambah
-                                </a>
-                            </div>
                         </div>
 
                         <div class="card-body">
@@ -31,66 +20,82 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nama Lengkap</th>
-                                            <th>Status</th>
+                                            <th class="text-center">Nama Lengkap</th>
+                                            <th class="text-center">Jenis Kelamin</th>
+                                            <th class="text-center">Email</th>
+                                            <th class="text-center">Status</th>
                                             <th class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $__currentLoopData = $hasilSeleksi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $hasil): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php $__currentLoopData = $students; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $student): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <tr>
                                                 <td><?php echo e($loop->iteration); ?></td>
-                                                <td><?php echo e($hasil->nama_lengkap); ?></td>
-                                                <td class="text-center">
-                                                    <form action="<?php echo e(route('hasil_seleksi.update', $hasil->id)); ?>"
-                                                        method="POST">
-                                                        <?php echo csrf_field(); ?>
-                                                        <?php echo method_field('PUT'); ?>
-                                                        <button type="submit"
-                                                            class="btn <?php echo e($hasil->status === 'Lolos' ? 'btn-success' : 'btn-danger'); ?> 
-                                                                        btn-lg 
-                                                                        d-flex 
-                                                                        align-items-center 
-                                                                        justify-content-center 
-                                                                        transition-all 
-                                                                        hover:scale-105 
-                                                                        focus:outline-none 
-                                                                        shadow-md"
-                                                            style="font-size: 16px; padding: 10px 20px;">
-                                                            <i class="fas <?php echo e($hasil->status === 'Lolos' ? 'fa-check-circle' : 'fa-times-circle'); ?>"
-                                                                style="margin-right: 8px;"></i>
-                                                            <?php echo e($hasil->status); ?>
+                                                <td><?php echo e($student->nama_lengkap); ?></td>
+                                                <td><?php echo e($student->jenis_kelamin); ?></td>
+                                                <td><?php echo e($student->email); ?></td>
 
-                                                        </button>
-                                                    </form>
-                                                </td>
+
                                                 <td class="text-center">
-                                                    <form action="<?php echo e(route('hasil_seleksi.destroy', $hasil->id)); ?>"
-                                                        method="POST" style="display:inline;">
-                                                        <?php echo csrf_field(); ?>
-                                                        <?php echo method_field('DELETE'); ?>
-                                                        <button type="submit" class="btn btn-danger btn-sm"
-                                                            onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
-                                                            <i class="fas fa-trash-alt" style="font-size: 18px;"></i>
-                                                        </button>
-                                                    </form>
+                                                    <span
+                                                        class="badge 
+                                                        <?php if($student->status == 'Terima'): ?> bg-success 
+                                                        <?php elseif($student->status == 'Tidak Terima'): ?> bg-danger 
+                                                        <?php else: ?> bg-warning text-white <?php endif; ?>"
+                                                        style="padding: 10px 15px; font-size: 12px; font-weight: bold;">
+                                                        <i
+                                                            class="fas 
+                                                            <?php if($student->status == 'Terima'): ?> fa-check-circle 
+                                                            <?php elseif($student->status == 'Tidak Terima'): ?> fa-times-circle 
+                                                            <?php else: ?> fa-spinner <?php endif; ?>"></i>
+                                                        <?php echo e($student->status ?? 'Proses'); ?>
+
+                                                    </span>
                                                 </td>
+
+                                                <td class="text-center">
+                                                    <div class="d-flex justify-content-center flex-wrap gap-2">
+                                                        <form action="<?php echo e(route('student.updateStatus', $student->id)); ?>"
+                                                            method="POST">
+                                                            <?php echo csrf_field(); ?>
+                                                            <?php echo method_field('PUT'); ?>
+                                                            <input type="hidden" name="status" value="Terima">
+                                                            <button type="submit" class="btn btn-success btn-sm">
+                                                                <i class="fas fa-check-circle"></i> Terima
+                                                            </button>
+                                                        </form>
+
+                                                        <form action="<?php echo e(route('student.updateStatus', $student->id)); ?>"
+                                                            method="POST">
+                                                            <?php echo csrf_field(); ?>
+                                                            <?php echo method_field('PUT'); ?>
+                                                            <input type="hidden" name="status" value="Tidak Terima">
+                                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                                <i class="fas fa-times-circle"></i> Tidak Terima
+                                                            </button>
+                                                        </form>
+
+                                                        <form action="<?php echo e(route('student.updateStatus', $student->id)); ?>"
+                                                            method="POST">
+                                                            <?php echo csrf_field(); ?>
+                                                            <?php echo method_field('PUT'); ?>
+                                                            <input type="hidden" name="status" value="Proses">
+                                                            <button type="submit" class="btn btn-warning btn-sm">
+                                                                <i class="fas fa-undo"></i> Reset
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+
+
+
                                             </tr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div class="d-flex justify-content-between">
-                                <div>
-                                    <span>Showing <?php echo e($hasilSeleksi->firstItem()); ?> to <?php echo e($hasilSeleksi->lastItem()); ?> of
-                                        <?php echo e($hasilSeleksi->total()); ?> entries</span>
-                                </div>
-                                <div>
-                                    <?php echo e($hasilSeleksi->links('pagination::bootstrap-4')); ?>
-
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -122,45 +127,5 @@
         });
     </script>
 <?php $__env->stopSection(); ?>
-
-
-<style>
-    .pagination {
-        display: inline-block;
-    }
-
-    .pagination li {
-        display: inline;
-    }
-
-    .pagination li a,
-    .pagination li span {
-        border: 1px solid #ddd;
-        padding: 8px 16px;
-        margin: 0 4px;
-        text-decoration: none;
-        color: #007bff;
-        border-radius: 4px;
-        font-weight: bold;
-    }
-
-    .pagination li a:hover,
-    .pagination li span:hover {
-        background-color: #007bff;
-        color: white;
-    }
-
-    .pagination .active span {
-        background-color: #007bff;
-        color: white;
-        border: 1px solid #007bff;
-    }
-
-    .pagination .disabled span {
-        background-color: #f1f1f1;
-        color: #ccc;
-        border: 1px solid #ddd;
-    }
-</style>
 
 <?php echo $__env->make('backend.dashboard.dashboard.dashboard', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\PROJECT WEB SKRIPSI\PPDB_MA_NU_LU\resources\views/backend/students/hasil-seleksi.blade.php ENDPATH**/ ?>

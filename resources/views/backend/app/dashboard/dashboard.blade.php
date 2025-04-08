@@ -6,7 +6,8 @@
     <title>MA NU LUTHFUL ULUM - Dashboard</title>
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
     <link rel="icon" href="{{ asset('backend/assets/img/logo-MA.png') }}" type="image/x-icon" />
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.3.1/ckeditor5.css" />
 
@@ -40,8 +41,6 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/css/plugins.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('backend/assets/css/kaiadmin.min.css') }}" />
-
-
     <link rel="stylesheet" href="{{ asset('backend/assets/css/demo.css') }}" />
 
     <style>
@@ -64,6 +63,307 @@
             transition: transform 0.3s ease;
         }
     </style>
+
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --info: #4895ef;
+            --warning: #f72585;
+            --danger: #e63946;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fb;
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .dashboard-header {
+            padding: 30px 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: 25px;
+        }
+
+        .dashboard-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dashboard-header h2 i {
+            background: linear-gradient(45deg, var(--primary), var(--info));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .date-display {
+            font-size: 14px;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .stat-card.primary::before {
+            background: linear-gradient(180deg, var(--primary), var(--info));
+        }
+
+        .stat-card.info::before {
+            background: linear-gradient(180deg, var(--info), var(--success));
+        }
+
+        .stat-card.success::before {
+            background: linear-gradient(180deg, var(--success), #2dd4bf);
+        }
+
+        .stat-card.secondary::before {
+            background: linear-gradient(180deg, var(--secondary), var(--primary));
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 24px;
+            color: white;
+        }
+
+        .stat-card.primary .stat-icon {
+            background: linear-gradient(45deg, var(--primary), var(--info));
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+
+        .stat-card.info .stat-icon {
+            background: linear-gradient(45deg, var(--info), var(--success));
+            box-shadow: 0 4px 10px rgba(72, 149, 239, 0.3);
+        }
+
+        .stat-card.success .stat-icon {
+            background: linear-gradient(45deg, var(--success), #2dd4bf);
+            box-shadow: 0 4px 10px rgba(76, 201, 240, 0.3);
+        }
+
+        .stat-card.secondary .stat-icon {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            box-shadow: 0 4px 10px rgba(63, 55, 201, 0.3);
+        }
+
+        .stat-content {
+            flex: 1;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--gray-800);
+            line-height: 1.2;
+        }
+
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 991px) {
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .chart-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chart-title i {
+            color: var(--primary);
+        }
+
+        .chart-body {
+            padding: 20px;
+        }
+
+        .chart-container {
+            height: 350px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .articles-summary {
+            margin-top: 20px;
+        }
+
+        .articles-summary h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gray-700);
+        }
+
+        .articles-summary ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .articles-summary li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+
+        .articles-summary li i {
+            color: var(--primary);
+            font-size: 12px;
+        }
+
+        .articles-summary li strong {
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+
+        .students-chart-card {
+            background: linear-gradient(135deg, var(--info), var(--primary));
+            color: white;
+        }
+
+        .students-chart-card .chart-title {
+            color: white;
+        }
+
+        .students-chart-card .chart-title i {
+            color: white;
+        }
+
+        @media (max-width: 767px) {
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .stat-value {
+                font-size: 24px;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+
+            .container,
+            .container-full {
+                padding: 10px !important;
+                margin: auto;
+            }
+        }
+    </style>
+
 </head>
 
 <body>
@@ -142,17 +442,15 @@
     <!-- jQuery Vector Maps -->
     <script src="{{ asset('backend/assets/js/plugin/jsvectormap/jsvectormap.min.js') }}"></script>
     <script src="{{ asset('backend/assets/js/plugin/jsvectormap/world.js') }}"></script>
-
     <!-- Sweet Alert -->
     <script src="{{ asset('backend/assets/js/plugin/sweetalert/sweetalert.min.js') }}"></script>
-
     <!-- Kaiadmin JS -->
     <script src="{{ asset('backend/assets/js/kaiadmin.min.js') }}"></script>
-
-
     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
     <script src="{{ asset('backend/assets/js/setting-demo.js') }}"></script>
     <script src="{{ asset('backend/assets/js/demo.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
 
 
     <script>

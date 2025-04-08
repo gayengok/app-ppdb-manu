@@ -77,10 +77,10 @@
                     <h4 style="color: #3A6B56">Our Features</h4>
                     <ul>
                         <li><i class="bi bi-chevron-right"></i> <a href="{{ url('/') }}">Home</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('news.blog') }}">Blog</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('galery.foto') }}">Gallry</a></li>
-                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('pengumuman.siswa') }}">Pengumuman</a>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('news.blog') }}">Berita</a></li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('ppdb.siswa') }}">PPDB</a>
                         </li>
+                        <li><i class="bi bi-chevron-right"></i> <a href="{{ route('galery.foto') }}">Gallry</a></li>
                         <li><i class="bi bi-chevron-right"></i> <a href="{{ route('profil.sejarah') }}">Profil</a></li>
                     </ul>
                 </div>

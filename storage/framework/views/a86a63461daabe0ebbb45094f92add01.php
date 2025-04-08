@@ -9,7 +9,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h4 class="card-title mb-0">
-                                <i class="fas fa-newspaper"></i> Data - Masuk Siswa
+                                <i class="fas fa-newspaper"></i> Data - Identitas Calon Siswa
                             </h4>
                         </div>
                         <div class="card-body">

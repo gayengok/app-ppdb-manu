@@ -11,7 +11,6 @@ use App\Http\Controllers\Backend\LoginController;
 // use App\Http\Controllers\Backend\RegisterController;
 use App\Http\Controllers\Backend\Berita\ArtikelController;
 use App\Http\Controllers\Backend\Siswa\StudentController;
-use App\Http\Controllers\Backend\Pengumuman\UploadPengumumanController;
 use App\Http\Controllers\Backend\UploadPendaftaranController;
 use App\Http\Controllers\Backend\Video\VideoController;
 use App\Http\Controllers\Backend\Photo\PhotoController;
@@ -22,6 +21,11 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\Backend\DataSiswa\KelasSepuluh\KelasSepuluhController;
 use App\Http\Controllers\Backend\DataSiswa\KelasSebelas\Kelas11Controller;
 use App\Http\Controllers\Backend\DataSiswa\KelasDuabelas\Kelas12Controller;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\Backend\PengaturanController;
+use App\Http\Controllers\Backend\Data\Akun\SiswaController;
+use App\Http\Controllers\Backend\Informasi\InformasiController;
+
 
 // ___________________________FRONTEND____________________________________//
 // =======================================================================//
@@ -29,7 +33,8 @@ use App\Http\Controllers\Backend\DataSiswa\KelasDuabelas\Kelas12Controller;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\NewsController;
 use App\Http\Controllers\Frontend\Galery\GalleryController;
-use App\Http\Controllers\Frontend\Pengumuman\PengumumanController;
+
+use App\Http\Controllers\Frontend\Informasi\PPDBController;
 use App\Http\Controllers\Frontend\Syarat\PendaftaranController;
 use App\Http\Controllers\Frontend\Profil\SejarahController;
 use App\Http\Controllers\Frontend\Profil\VisiMisiController;
@@ -38,12 +43,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Frontend\Contact\ContactController;
 use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\Frontend\Soal\Verbal\SoalVerbalController;
-use App\Http\Controllers\Frontend\Soal\Numerik\SoalNumerikController;
-use App\Http\Controllers\Frontend\Soal\BahasaInggris\SoalBahasaInggrisController;
-use App\Http\Controllers\Frontend\Soal\PilihanSoal\PilihanSoalController;
 use App\Http\Controllers\Frontend\Soal\Petunjuk\PetunjukController;
-
 
 //____________________________ DASHBOARD PPDB SISWA BARU___________________________//
 // ================================================================================//
@@ -53,7 +53,10 @@ use App\Http\Controllers\Backend\PPDB\Auth\Login\UserSiswaController;
 use App\Http\Controllers\Backend\PPDB\Auth\Register\RegisterSiswaController;
 use App\Http\Controllers\Backend\PPDB\Dashboard\Siswa\IdentitasSiswaController;
 use App\Http\Controllers\Backend\PPDB\Dashboard\Siswa\DokumenSiswaController;
-
+use App\Http\Controllers\Backend\PPDB\Verifikasi\VerifikasiController;
+use App\Http\Controllers\Backend\Pengumuman\Siswa\HasilController;
+use App\Http\Controllers\Backend\PPDB\Pengumuman\KelulusanController;
+use App\Http\Controllers\Backend\PPDB\Pengumuman\SuratController;
 
 // DATA ROUTE BAGIAN BACKEND
 
@@ -67,11 +70,14 @@ Route::get('/notifications/mark-as-read', function () {
 //Halaman login ADMIN
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login'])->name('login.process');
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::post('/admin/logout', [LoginController::class, 'logout'])->name('logout');
+
 
 // Profil 
 Route::middleware('auth')->get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::middleware('auth')->post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
 // Data Siswa
 Route::prefix('admin')->group(function () {
     Route::get('/students', [StudentController::class, 'index'])->name('admin.students.index');
@@ -79,22 +85,16 @@ Route::prefix('admin')->group(function () {
     Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('admin.students.destroy');
 });
 
-// Route::get('/create', [StudentController::class, 'create'])->name('students.create');
 Route::post('/students', [StudentController::class, 'store'])->name('students.store');
 Route::get('student/{id}/download-pdf', [StudentController::class, 'downloadPdf'])->name('students.downloadPdf');
+Route::put('/student/{id}/status', [StudentController::class, 'updateStatus'])->name('student.updateStatus');
 
-// DATA HASIL SELEKSI SIWA BARU
+// Verifikasi Data
 Route::get('/hasil-seleksi', [HasilSeleksiController::class, 'index'])->name('hasil_seleksi.index');
-Route::put('/hasil-seleksi/{id}/status', [HasilSeleksiController::class, 'updateStatus'])->name('hasil_seleksi.updateStatus');
-Route::delete('/hasil-seleksi/{id}', [HasilSeleksiController::class, 'destroy'])->name('hasil_seleksi.destroy');
-Route::get('hasil_seleksi/create', [HasilSeleksiController::class, 'create'])->name('hasil_seleksi.create');
-Route::post('hasil_seleksi', [HasilSeleksiController::class, 'store'])->name('hasil_seleksi.store');
-Route::get('hasil_seleksi/{id}/edit', [HasilSeleksiController::class, 'edit'])->name('hasil_seleksi.edit');
-Route::put('hasil_seleksi/{id}', [HasilSeleksiController::class, 'update'])->name('hasil_seleksi.update');
 Route::get('hasil-seleksi/cetak-pdf', [HasilSeleksiController::class, 'printPDF'])->name('hasil_seleksi.printPDF');
 
-// Route untuk melihat dokumen admin
 
+// Route untuk melihat dokumen admin
 Route::get('/dokumen', [PendaftaranController::class, 'showDokumen'])->name('admin.dokumen.index');
 Route::post('/dokumen', [PendaftaranController::class, 'syarat'])->name('admin.dokumen.store');
 Route::delete('/dokumen/{id}', [PendaftaranController::class, 'destroy'])->name('admin.dokumen.delete');
@@ -125,17 +125,7 @@ Route::prefix('admin')->group(function () {
     Route::delete('guru/{guru}', [GuruController::class, 'destroy'])->name('guru.destroy');
 });
 
-// Data Pengumuman Hasil Seleksi Siswa
 
-Route::prefix('admin')->group(function () {
-    Route::get('pengumuman', [UploadPengumumanController::class, 'index'])->name('pengumuman.index');
-    Route::get('pengumuman/create', [UploadPengumumanController::class, 'create'])->name('pengumuman.create');
-    Route::post('pengumuman/store', [UploadPengumumanController::class, 'store'])->name('pengumuman.store');
-    Route::get('pengumuman/{id}', [UploadPengumumanController::class, 'show'])->name('pengumuman.show');
-    Route::get('pengumuman/{id}/edit', [UploadPengumumanController::class, 'edit'])->name('pengumuman.edit');
-    Route::put('pengumuman/{id}', [UploadPengumumanController::class, 'update'])->name('pengumuman.update');
-    Route::delete('pengumuman/{id}', [UploadPengumumanController::class, 'destroy'])->name('pengumuman.destroy');
-});
 
 // UPLOAD PENDAFTARAN
 Route::get('/upload-pendaftaran/create', [UploadPendaftaranController::class, 'create'])->name('upload-pendaftaran.create');
@@ -206,6 +196,14 @@ Route::prefix('admin')->group(function () {
     });
 });
 
+Route::prefix('admin')->group(function () {
+    Route::get('/informasi', [InformasiController::class, 'index'])->name('admin.informasi.index');
+    Route::post('/informasi', [InformasiController::class, 'store'])->name('admin.informasi.store');
+    Route::put('/informasi/{id}', [InformasiController::class, 'update'])->name('admin.informasi.update');
+
+    Route::delete('/informasi/{id}', [InformasiController::class, 'destroy'])->name('admin.informasi.destroy');
+});
+
 // DATA BAGIAN ROUTE FRONTEND
 
 Route::get('/', [HomeController::class, 'index'])->name('pages.home');
@@ -215,7 +213,7 @@ Route::get('/article/{id}', [ArticleController::class, 'show'])->name('article.s
 Route::get('/galery', [GalleryController::class, 'index'])->name('galery.foto');
 Route::get('/galery-video', [GalleryController::class, 'video'])->name('galery.video');
 // DATA PENGUMUMAN SISWA
-Route::get('/pengumuman', [PengumumanController::class, 'pengumuman'])->name('pengumuman.siswa');
+
 Route::post('/upload-image', [ImageController::class, 'uploadImage']);
 Route::get('/sejarah', [SejarahController::class, 'index'])->name('profil.sejarah');
 Route::get('/visi-misi', [VisiMisiController::class, 'visiMisi'])->name('profil.visi-misi');
@@ -223,12 +221,14 @@ Route::get('/visi-misi', [VisiMisiController::class, 'visiMisi'])->name('profil.
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
-Route::get('/pilihan-soal', [PilihanSoalController::class, 'index'])->name('pilihan-soal.index');
-Route::get('/petunjuk', [PetunjukController::class, 'index'])->name('petunjuk.index');
-Route::get('/soal-verbal', [SoalVerbalController::class, 'index'])->name('soal-verbal.index');
-Route::get('/soal-numerik', [SoalNumerikController::class, 'index'])->name('soal-numerik.index');
-Route::get('/soal-bahasa-inggris', [SoalBahasaInggrisController::class, 'index'])->name('soal-bahasa-inggris.index');
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
+    Route::delete('/siswa/{id}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
+});
 
+
+Route::get('/admin/settings', [PengaturanController::class, 'showSettings'])->name('admin.settings');
+Route::post('/admin/settings', [PengaturanController::class, 'updateStatus'])->name('admin.updateStatus');
 
 
 // ______________________DASHBOARD PPDB SISWA BARU____________________________//
@@ -240,9 +240,26 @@ Route::get('/siswa/login_siswa', [UserSiswaController::class, 'index'])->name('l
 Route::post('/siswa/login_siswa', [UserSiswaController::class, 'login'])->name('login_siswa.login');
 Route::get('/siswa/register_siswa', [RegisterSiswaController::class, 'index'])->name('register_siswa.index');
 Route::post('/calon-siswa/register', [RegisterSiswaController::class, 'store'])->name('calon_siswa.store');
+Route::post('/siswa/logout', [UserSiswaController::class, 'logout'])->name('siswa.logout');
+
 
 Route::get('/siswa/identitas_siswa', [IdentitasSiswaController::class, 'index'])->name('identitas_siswa.index');
 Route::post('/siswa/identitas_siswa', [IdentitasSiswaController::class, 'store'])->name('identitas_siswa.store');
 
 Route::get('/siswa/upload_dokumen', [DokumenSiswaController::class, 'index'])->name('upload_dokumen.index');
 Route::post('/siswa/upload_dokumen', [DokumenSiswaController::class, 'documen'])->name('upload_dokumen.documen');
+Route::get('/informasi/ppdb', [PPDBController::class, 'index'])->name('ppdb.siswa');
+
+Route::get('/siswa/verifikasi', [VerifikasiController::class, 'index'])->name('verifikasi.index');
+Route::get('/petunjuk', [PetunjukController::class, 'index'])->name('petunjuk.index');
+Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+Route::post('/quiz/submit', [QuizController::class, 'submit'])->name('quiz.submit');
+Route::get('/quiz/result/{quizAttempt}', [QuizController::class, 'result'])->name('quiz.result');
+Route::get('/admin/quiz', [QuizController::class, 'admin'])->name('quiz.admin');
+Route::delete('/quiz/{id}', [QuizController::class, 'destroy'])->name('quiz.delete');
+
+Route::get('/pengumuman_siswa', [HasilController::class, 'index'])->name('pengumuman.index');
+Route::put('/pengumuman_siswa/update/{id}', [HasilController::class, 'updateStatus'])->name('pengumuman.update');
+Route::get('/kelulusan', [KelulusanController::class, 'index'])->name('kelulusan.index');
+Route::get('/cetak-pdf/{id}', [KelulusanController::class, 'cetakPdf'])->name('cetak.pdf');
+Route::get('/pengumuman/surat', [SuratController::class, 'index'])->name('surat.index');

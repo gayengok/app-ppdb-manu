@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\HasilSeleksi;
 use App\Models\Notification;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+
 
 class HasilSeleksiController extends Controller
 {
@@ -14,65 +15,23 @@ class HasilSeleksiController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $hasilSeleksi = HasilSeleksi::orderBy('created_at', 'desc')->paginate(5);
+        $student = Auth::guard('calonsiswa')->user();
+        $students = Student::orderBy('created_at', 'desc')->paginate(5);
         $notifications = Notification::where('is_read', false)
             ->orderBy('created_at', 'desc')
             ->get();
-
-
-        return view('backend.students.hasil-seleksi', compact('hasilSeleksi', 'notifications', 'user'));
-    }
-
-    // Mengupdate status siswa (Lolos/Gagal)
-    public function update(Request $request, $id)
-    {
-
-        $hasil = HasilSeleksi::findOrFail($id);
-        $hasil->status = $hasil->status === 'Lolos' ? 'Tidak Lolos' : 'Lolos';
-        $hasil->save();
-        return redirect()->route('hasil_seleksi.index')->with('success', 'Status berhasil diperbarui!');
+        return view('backend.students.hasil-seleksi', compact('students', 'notifications', 'user'));
     }
 
 
 
-    public function destroy($id)
-    {
-        $hasil = HasilSeleksi::findOrFail($id);
-        $hasil->delete();
-        return redirect()->route('hasil_seleksi.index')->with('success', 'Data berhasil dihapus!');
-    }
 
-
-    public function create()
-    {
-        $user = Auth::user();
-        $notifications = Notification::where('is_read', false)
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        return view('backend.students.create-hasil', compact('notifications', 'user'));
-    }
-
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama_lengkap' => 'required|string|max:255',
-            'status' => 'required|in:Lolos,Tidak Lolos',
-        ]);
-
-        HasilSeleksi::create([
-            'nama_lengkap' => $request->nama_lengkap,
-            'status' => $request->status,
-        ]);
-
-        return redirect()->route('hasil_seleksi.index')->with('success', 'Data hasil seleksi berhasil ditambahkan!');
-    }
 
     // Fungsi untuk mencetak PDF
-    public function printPDF()
-    {
-        $hasilSeleksi = HasilSeleksi::all();
-        $pdf = PDF::loadView('backend.students.cetak-pdf', compact('hasilSeleksi'));
-        return $pdf->download('hasil-seleksi.pdf');
-    }
+    // public function printPDF()
+    // {
+    //     $hasilSeleksi = HasilSeleksi::all();
+    //     $pdf = PDF::loadView('backend.students.cetak-pdf', compact('hasilSeleksi'));
+    //     return $pdf->download('hasil-seleksi.pdf');
+    // }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Artikel;
+use App\Models\Informasi;
 
 class SearchController extends Controller
 {
@@ -12,14 +13,20 @@ class SearchController extends Controller
     {
         $query = $request->input('query'); // Ambil input pencarian
 
-        // Validasi input pencarian (opsional)
-        $request->validate([
-            'query' => 'required|string|min:3',
-        ]);
+        $query = $request->input('query');
 
-        // Pencarian data di model yang sesuai
-        $artikels = Artikel::where('title', 'like', '%' . $query . '%')
+        // Pencarian di model Berita
+        $artikels = Artikel::where('title', 'ilike', '%' . $query . '%')
+            ->orWhere('content', 'ilike', '%' . $query . '%')
             ->get();
+
+        // $informasis = Informasi::when($query, function ($q) use ($query) {
+        //     return $q->where('judul', 'like', '%' . $query . '%')
+        //         ->orWhere('deskripsi', 'like', '%' . $query . '%');
+        // })
+        //     ->orderBy('created_at', 'desc')
+        //     ->limit(5)
+        //     ->get();
 
         // Kirim hasil pencarian ke view
         return view('frontend.search_results', compact('artikels', 'query'));

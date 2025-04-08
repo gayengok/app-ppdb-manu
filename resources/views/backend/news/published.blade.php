@@ -1,164 +1,301 @@
 @extends('backend.dashboard.dashboard.dashboard')
 
 @section('content')
-    <div class="container">
-        <div class="page-inner">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h4 class="card-title mb-0">
-                                <i class="fas fa-newspaper"></i> Editorial - Published
-                            </h4>
-                        </div>
+    <div class="container-fluid px-4">
+        <div class="page-header my-4">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h2 class="page-title text-primary fw-bold">
+                        <i class="fas fa-newspaper me-2"></i>Editorial Manager
+                    </h2>
+                </div>
+            </div>
+        </div>
 
-                        {{-- @if (session('success'))
-                            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                                {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+        <div class="card border-0 shadow-lg rounded-lg overflow-hidden">
+            <div class="card-header bg-white py-3">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 mb-3 mb-lg-0">
+                        <h5 class="mb-0 text-dark fw-bold">Published Articles</h5>
+                    </div>
+                    <div class="col-lg-6">
+                        <!-- Fixed search form -->
+                        <form action="{{ route('news.berita') }}" method="GET">
+                            <div class="input-group shadow-sm">
+                                <span class="input-group-text bg-light border-0">
+                                    <i class="fas fa-search text-primary"></i>
+                                </span>
+                                <input type="text" name="search" class="form-control border-0 bg-light"
+                                    placeholder="Search articles..." value="{{ request('search') }}">
+                                <button type="submit" class="btn btn-primary px-3">Search</button>
                             </div>
-                        @endif --}}
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="container mt-3">
-                            <div class="row">
-
-                                <div class="col-md-4 d-flex align-items-center">
-                                    <a href="{{ route('post.berita') }}" class="btn btn-primary" style="margin-left: 10px;">
-                                        <i class="fas fa-plus"></i> New Article
-                                    </a>
-                                </div>
-
-                                <div class="col-md-8">
-                                    <form action="{{ route('news.berita') }}" method="GET" class="d-flex ms-auto me-3"
-                                        style="width: 330px;">
-                                        <div class="input-group">
-                                            <span class="input-group-text">
-                                                <i class="fas fa-search"></i>
-                                            </span>
-                                            <input type="text" name="search" class="form-control"
-                                                placeholder="Search articles..." value="{{ request('search') }}">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-gradient-primary text-white">
+                            <tr>
+                                <th class="py-3 ps-4">No</th>
+                                <th class="py-3">Article Title</th>
+                                <th class="py-3 text-center">Status</th>
+                                <th class="py-3 text-center">Author</th>
+                                <th class="py-3 text-center">Published Date</th>
+                                <th class="py-3 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($artikels as $index => $artikel)
+                                <tr class="border-bottom">
+                                    <td class="ps-4">{{ $index + 1 + ($artikels->currentPage() - 1) * 10 }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="article-icon bg-light rounded p-2 me-3">
+                                                <i class="fas fa-file-alt text-primary fs-4"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-1">{{ Str::limit($artikel->title, 70) }}</h6>
+                                                <span class="text-muted small">ID: #{{ $artikel->id }}</span>
+                                            </div>
                                         </div>
-                                    </form>
-                                </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-success rounded-pill px-3 py-2">{{ $artikel->status }}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="avatar avatar-sm me-2 bg-primary rounded-circle">
+                                                <span
+                                                    class="avatar-text text-white">{{ substr($artikel->author, 0, 1) }}</span>
+                                            </div>
+                                            <span>{{ $artikel->author }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <span class="fw-bold">{{ $artikel->published_date->format('d M Y') }}</span>
+                                            <small
+                                                class="text-muted">{{ $artikel->published_date->diffForHumans() }}</small>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a href="{{ route('articles.edit', $artikel->id) }}"
+                                                class="btn btn-light btn-sm rounded-circle shadow-sm" title="Edit Article">
+                                                <i class="fas fa-edit text-info"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-light btn-sm rounded-circle shadow-sm"
+                                                title="View Article">
+                                                <i class="fas fa-eye text-primary"></i>
+                                            </a>
+                                            <form action="{{ route('artikels.destroy', $artikel->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-light btn-sm rounded-circle shadow-sm"
+                                                    title="Delete Article"
+                                                    onclick="return confirm('Are you sure you want to delete this article?')">
+                                                    <i class="fas fa-trash-alt text-danger"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                            </div>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered"
-                                    style="border: 1px solid #ddd; border-collapse: collapse;">
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center;">No</th>
-                                            <th style="text-align: center;">Title</th>
-                                            <th style="text-align: center;">Status</th>
-                                            <th style="text-align: center;">Author</th>
-                                            <th style="text-align: center;">Published Date</th>
-                                            <th style="text-align: center;">Action</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody>
-                                        @foreach ($artikels as $index => $artikel)
-                                            <tr>
-                                                <td class="text-center">
-                                                    {{ $index + 1 + ($artikels->currentPage() - 1) * 10 }}</td>
-                                                <td>{{ Str::limit($artikel->title, 70) }}</td>
-                                                <td class="text-center">{{ $artikel->status }}</td>
-                                                <td class="text-center">{{ $artikel->author }}</td>
-                                                <td class="text-center">{{ $artikel->published_date->format('Y/m/d') }}</td>
-
-                                                <td class="text-center">
-                                                    <!-- Edit and Delete buttons -->
-                                                    <div class="d-flex justify-content-center flex-wrap">
-                                                        <a href="{{ route('articles.edit', $artikel->id) }}"
-                                                            class="btn btn-info btn-icon m-1" title="Edit Artikel">
-                                                            <i class="fas fa-edit" style="font-size: 1.5rem;"></i>
-                                                        </a>
-
-                                                        <form action="{{ route('artikels.destroy', $artikel->id) }}"
-                                                            method="POST" style="display:inline;">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger btn-icon m-1"
-                                                                title="Hapus Artikel">
-                                                                <i class="fas fa-trash-alt" style="font-size: 1.5rem;"></i>
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </td>
-
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <!-- Pagination showing message -->
-                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                <div>
-                                    <span class="text-muted">
-                                        Showing {{ $artikels->firstItem() }} to {{ $artikels->lastItem() }} of
-                                        {{ $artikels->total() }} entries
-                                    </span>
-                                </div>
-
-                                <div>
-                                    {{ $artikels->links('pagination::bootstrap-4') }}
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <script src="{{ asset('popup/js/popup.js') }}"></script>
-                        @if (session('success'))
-                            <meta name="success-message" content="{{ session('success') }}">
-                        @endif
+            <div class="card-footer bg-white border-0 py-3">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <span class="badge bg-light text-dark">
+                            Showing {{ $artikels->firstItem() }} to {{ $artikels->lastItem() }} of
+                            {{ $artikels->total() }} entries
+                        </span>
+                    </div>
+                    <div class="col-auto">
+                        <nav>
+                            {{ $artikels->links('pagination::bootstrap-5') }}
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    @if (session('success'))
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div class="toast show bg-white shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-success text-white">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <strong class="me-auto">Success</strong>
+                    <small>Just now</small>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+                </div>
+                <div class="toast-body py-3">
+                    {{ session('success') }}
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
 
+@push('styles')
+    <style>
+        /* Premium Styles for Dashboard */
+        body {
+            background-color: #f8f9fc;
+        }
 
-<style>
-    th {
-        background-color: #120101 !important;
-        color: white !important;
-    }
+        .page-title {
+            font-size: 1.75rem;
+            letter-spacing: -0.5px;
+        }
 
-    @media (max-width: 767px) {
+        .card {
+            transition: all 0.2s ease;
+        }
+
+        .bg-gradient-primary {
+            background: linear-gradient(45deg, #4e73df, #224abe);
+        }
+
+        .table> :not(caption)>*>* {
+            padding: 1rem 0.75rem;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar-text {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .badge {
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
         .btn-primary {
-            width: 100%;
-            margin-left: 10px;
-            margin-right: 10px;
+            background-color: #4e73df;
+            border-color: #4e73df;
         }
 
-    }
-
-    @media (max-width: 767px) {
-        .col-md-8 {
-            position: relative;
-            top: 10px;
+        .btn-primary:hover {
+            background-color: #2e59d9;
+            border-color: #2653d4;
         }
 
-        .input-group {
-            width: 100%;
-        }
-    }
-
-    @media (max-width: 576px) {
-        .btn-icon i {
-            font-size: 1.2rem;
-            /* Ukuran ikon lebih kecil */
+        .text-primary {
+            color: #4e73df !important;
         }
 
-        .btn {
-            padding: 0.5rem;
-            /* Sesuaikan padding tombol */
+        .article-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-    }
-</style>
+
+        /* Responsive Fixes */
+        @media (max-width: 992px) {
+            .card-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .input-group {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header .row {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .page-header .col-auto {
+                margin: 1rem auto 0;
+            }
+
+            .table-responsive {
+                font-size: 0.875rem;
+            }
+
+            .input-group {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .btn-sm {
+                padding: 0.25rem 0.5rem;
+            }
+
+            .d-flex.gap-2 {
+                gap: 0.5rem !important;
+            }
+        }
+
+        /* Animation for Cards */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.15) !important;
+        }
+
+        /* Toast Animation */
+        .toast {
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script>
+        // Auto-hide toast after 5 seconds
+        setTimeout(function() {
+            const toast = document.querySelector('.toast');
+            if (toast) {
+                const bsToast = new bootstrap.Toast(toast);
+                bsToast.hide();
+            }
+        }, 5000);
+
+        // Row hover effect
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('mouseover', () => {
+                row.classList.add('bg-light');
+            });
+
+            row.addEventListener('mouseout', () => {
+                row.classList.remove('bg-light');
+            });
+        });
+    </script>
+@endpush

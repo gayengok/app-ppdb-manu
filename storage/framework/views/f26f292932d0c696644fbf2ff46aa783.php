@@ -1,56 +1,622 @@
 
 
 <?php $__env->startSection('content'); ?>
-    <section class="py-5 bg-light" style="margin-top: 80px; max-height: 100vh; overflow-y: auto;">
-        <div class="container my-4">
-            <?php if($pengumuman->isEmpty()): ?>
-                <p class="text-center text-muted">Tidak ada data pengumuman saat ini.</p>
-            <?php else: ?>
-                <?php $__currentLoopData = $pengumuman; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="text-center mb-4">
-                        <h2 class="fw-bold" style="font-family: 'Roboto', sans-serif; color: #2c3e50;">
-                            <?php echo e(e($item->judul)); ?>
-
-                        </h2>
-                        <p class="lead" style="font-family: 'Roboto', sans-serif;">
-                            Selamat kepada seluruh siswa baru MA NU Luthful Ulum yang telah berhasil lulus!
-                            Silakan unduh pengumuman kelulusan di bawah ini.
-                        </p>
-                    </div>
-
-                    <div class="card shadow">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Unduh Pengumuman Kelulusan</h5>
-                            <p class="card-text">
-                                <?php if(!empty($item->file_path)): ?>
-                                    Klik tombol di bawah ini untuk mengunduh dokumen pengumuman kelulusan Anda.
-                                <?php else: ?>
-                                    File pengumuman belum tersedia saat ini. Silakan cek kembali nanti.
-                                <?php endif; ?>
-                            </p>
-
-                            <?php if(!empty($item->file_path)): ?>
-                                <a href="<?php echo e(asset('storage/' . $item->file_path)); ?>" class="btn btn-success btn-lg"
-                                    download>
-                                    Unduh Pengumuman
-                                </a>
-                            <?php else: ?>
-                                <button class="btn btn-secondary btn-lg" disabled>
-                                    File Belum Tersedia
-                                </button>
-                            <?php endif; ?>
+    <div class="hero-section">
+        <div class="container-fluid px-0" style="overflow: hidden;">
+            <div id="newsCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <!-- Slide 1 -->
+                    <div class="carousel-item active">
+                        <div class="overlay-gradient"></div>
+                        <img src="<?php echo e(asset('frontend/assets/img/Hero.jpg')); ?>" class="d-block w-100" alt="Kegiatan 1">
+                        <div class="carousel-caption">
+                            <h2 class="fw-bold text-white">MA NU LUTHFUL ULUM</h2>
+                            <p class="lead">Membentuk generasi berilmu, berakhlak dan berprestasi</p>
+                            <button class="btn btn-primary rounded-pill px-4 mt-2">Gabung Sekarang</button>
                         </div>
                     </div>
 
-                    <div class="text-center mt-4">
-                        <p class="text-muted">
-                            Jika Anda mengalami kesulitan dalam mengunduh, silakan hubungi pihak sekolah.
-                        </p>
+                    <!-- Slide 2 -->
+                    <div class="carousel-item">
+                        <div class="overlay-gradient"></div>
+                        <img src="<?php echo e(asset('frontend/assets/img/MA-NU/kegiatan-1.jpg')); ?>" class="d-block w-100"
+                            alt="Kegiatan 2">
+                        <div class="carousel-caption">
+                            <h2 class="fw-bold text-white">PENDIDIKAN BERKUALITAS</h2>
+                            <p class="lead">Mengembangkan potensi siswa secara optimal</p>
+                            <button class="btn btn-primary rounded-pill px-4 mt-2">Gabung Sekarang</button>
+                        </div>
                     </div>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            <?php endif; ?>
+
+                    <!-- Slide 3 -->
+                    <div class="carousel-item">
+                        <div class="overlay-gradient"></div>
+                        <img src="<?php echo e(asset('frontend/assets/img/MA-NU/kegiatan-3.jpg')); ?>" class="d-block w-100"
+                            alt="Kegiatan 3">
+                        <div class="carousel-caption">
+                            <h2 class="fw-bold text-white">PRETASI & INOVASI</h2>
+                            <p class="lead">Pembelajaran modern berbasis nilai agama</p>
+                            <button class="btn btn-primary rounded-pill px-4 mt-2">Gabung Sekarang</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Premium styled carousel controls -->
+                <button class="carousel-control-prev premium-control" type="button" data-bs-target="#newsCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-icon" aria-hidden="true">
+                        <i class="fas fa-chevron-left"></i>
+                    </span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next premium-control" type="button" data-bs-target="#newsCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-icon" aria-hidden="true">
+                        <i class="fas fa-chevron-right"></i>
+                    </span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+
+                <!-- Carousel indicators -->
+                <div class="carousel-indicators custom-indicators">
+                    <button type="button" data-bs-target="#newsCarousel" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#newsCarousel" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#newsCarousel" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Hero Carousel Premium Styling */
+        .hero-section {
+            margin-top: 0;
+            position: relative;
+        }
+
+        .carousel-item {
+            height: 80vh;
+            min-height: 350px;
+            position: relative;
+        }
+
+        .carousel-item img {
+            height: 120%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .overlay-gradient {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .carousel-caption {
+            bottom: 20%;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .carousel-caption h2 {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s both;
+        }
+
+        .carousel-caption p {
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s 0.3s both;
+        }
+
+        .carousel-caption .btn {
+            animation: fadeInUp 1s 0.6s both;
+        }
+
+        .premium-control {
+            width: 40px;
+            height: 40px;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .carousel-control-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--white);
+            border-radius: 50%;
+            color: var(--primary-color);
+            box-shadow: var(--box-shadow);
+        }
+
+        .custom-indicators {
+            bottom: 20px;
+        }
+
+        .custom-indicators button {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 2px solid var(--white);
+            margin: 0 5px;
+        }
+
+        .custom-indicators button.active {
+            background-color: var(--secondary-color);
+            transform: scale(1.2);
+        }
+
+        /* Section Header Premium Styling */
+
+        .tracking-wide {
+            letter-spacing: 2px;
+        }
+
+        .title-separator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .separator-line {
+            height: 2px;
+            width: 50px;
+            background-color: var(--secondary-color);
+        }
+
+        .separator-icon {
+            margin: 0 10px;
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        /* Responsive Adjustments - Improved for Mobile */
+        @media (min-width: 992px) {
+            .carousel-item {
+                height: 70vh;
+                min-height: 450px;
+            }
+
+            .carousel-caption {
+                bottom: 20%;
+            }
+
+            .carousel-caption h2 {
+                font-size: 2.5rem;
+            }
+
+            .carousel-caption p {
+                font-size: 1.2rem;
+            }
+
+            .card-img-wrapper {
+                height: 220px;
+            }
+
+            .card-title {
+                font-size: 1.25rem;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .carousel-item {
+                height: 60vh;
+                min-height: 350px;
+            }
+
+            .section-header h2 {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .carousel-item {
+                height: 50vh;
+                min-height: 300px;
+            }
+
+            .carousel-caption {
+                bottom: 15%;
+                padding: 1rem;
+            }
+
+            .carousel-caption h2 {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .carousel-caption p {
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .carousel-caption .btn {
+                padding: 0.4rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .custom-indicators {
+                bottom: 10px;
+            }
+
+            .custom-indicators button {
+                width: 8px;
+                height: 8px;
+                margin: 0 3px;
+            }
+
+            .section-header h6 {
+                font-size: 0.8rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .section-header p {
+                font-size: 0.9rem;
+            }
+
+            .separator-line {
+                width: 40px;
+            }
+
+            .separator-icon {
+                font-size: 0.9rem;
+            }
+
+            .news-card {
+                margin-bottom: 15px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .carousel-item {
+                height: 40vh;
+                min-height: 250px;
+            }
+
+            .carousel-caption {
+                bottom: 20%;
+                padding: 0.8rem;
+            }
+
+            .carousel-caption h2 {
+                font-size: 1.3rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .carousel-caption p {
+                font-size: 0.8rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .carousel-caption .btn {
+                padding: 0.3rem 0.8rem;
+                font-size: 0.75rem;
+            }
+
+            .premium-control {
+                width: 30px;
+                height: 30px;
+            }
+
+            .carousel-control-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+
+            .card-img-wrapper {
+                height: 160px;
+            }
+
+            .card-date-badge {
+                font-size: 0.8rem;
+                padding: 5px 10px;
+            }
+
+            .card-body {
+                padding: 0.8rem;
+            }
+
+            .card-category .badge {
+                padding: 0.3rem 0.6rem;
+                font-size: 0.7rem;
+            }
+
+            .card-title {
+                font-size: 0.95rem;
+            }
+
+            .card-text {
+                font-size: 0.8rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .card-footer {
+                padding: 0.8rem;
+                font-size: 0.75rem;
+            }
+
+            .premium-pagination .page-link {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 90px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-header p {
+                font-size: 20px;
+            }
+        }
+    </style>
+
+    <!-- ======= Jadwal Pendaftaran Sekolah ======= -->
+    <section id="services" class="services">
+        <div class="container" data-aos="fade-up">
+            <header class="section-header">
+                <p>
+                    <span style="color: #FF9F00;">JADWAL</span>
+                    <span style="color: #3A6B56;">PELAKSANAAN</span>
+                </p>
+            </header>
+
+            <div class="timeline">
+                <div class="timeline-item clearfix">
+                    <div class="timeline-badge">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h3>Tahap 1</h3>
+                            <span class="timeline-date">23 Desember 2024 - 30 Maret 2025</span>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Informasi dan Sosialisasi</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item clearfix">
+                    <div class="timeline-badge">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h3>Tahap 2</h3>
+                            <span class="timeline-date">1 - 30 April 2025</span>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Pendaftaran secara online</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item clearfix">
+                    <div class="timeline-badge">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h3>Tahap 3</h3>
+                            <span class="timeline-date">11, 12, 25, 26 April dan 2, 3 Mei 2025</span>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Penyerahan / pengumpulan berkas pendaftaran secara offline</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item clearfix">
+                    <div class="timeline-badge">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <div class="timeline-panel">
+                        <div class="timeline-heading">
+                            <h3>Tahap 4</h3>
+                            <span class="timeline-date">10 - 11 Mei 2025</span>
+                        </div>
+                        <div class="timeline-body">
+                            <p>Pelaksanaan CBT</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row gy-4">
+                <!-- Boxes tetap sama -->
+                <!-- ... -->
+            </div>
         </div>
 
+        <style>
+            /* Reset elemen timeline */
+            .timeline {
+                position: relative;
+                padding: 40px 0;
+                margin-bottom: 50px;
+                overflow: hidden;
+            }
+
+            /* Garis tengah timeline */
+            .timeline::before {
+                content: '';
+                position: absolute;
+                width: 3px;
+                background-color: #e9ecef;
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                margin-left: -1.5px;
+            }
+
+            /* Item timeline */
+            .timeline-item {
+                margin-bottom: 50px;
+                position: relative;
+            }
+
+            /* Badge timeline */
+            .timeline-badge {
+                color: white;
+                width: 50px;
+                height: 50px;
+                line-height: 50px;
+                font-size: 20px;
+                text-align: center;
+                position: absolute;
+                top: 16px;
+                left: 50%;
+                margin-left: -25px;
+                background-color: #0b5a3b;
+                border: 3px solid white;
+                z-index: 100;
+                border-radius: 50%;
+            }
+
+            /* Panel konten timeline */
+            .timeline-panel {
+                width: 45%;
+                float: left;
+                padding: 20px;
+                position: relative;
+                text-align: right;
+                background-color: white;
+                border-radius: 8px;
+                box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            /* Clearfix untuk mengatasi floating */
+            .clearfix::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+
+            /* Panel untuk item genap */
+            .timeline-item:nth-child(even) .timeline-panel {
+                float: right;
+                text-align: left;
+            }
+
+            /* Heading timeline */
+            .timeline-heading h3 {
+                margin-top: 0;
+                font-weight: bold;
+                font-size: 22px;
+                color: #333;
+            }
+
+            /* Tanggal timeline */
+            .timeline-date {
+                display: block;
+                font-size: 16px;
+                margin-bottom: 8px;
+                font-weight: 600;
+                color: #555;
+            }
+
+            /* Konten timeline */
+            .timeline-body p {
+                margin-bottom: 0;
+                font-size: 15px;
+                color: #666;
+            }
+
+            /* Panel arrow */
+            .timeline-panel::after {
+                content: "";
+                position: absolute;
+                width: 0;
+                height: 0;
+                top: 20px;
+                border: 10px solid transparent;
+            }
+
+            /* Panel arrow kiri */
+            .timeline-item:nth-child(odd) .timeline-panel::after {
+                right: -20px;
+                border-left-color: white;
+            }
+
+            /* Panel arrow kanan */
+            .timeline-item:nth-child(even) .timeline-panel::after {
+                left: -20px;
+                border-right-color: white;
+            }
+
+            /* Service box styles (dipertahankan) */
+            /* ... (style lainnya tetap sama) ... */
+
+            /* Media query untuk responsivitas mobile */
+            @media (max-width: 767px) {
+                .timeline::before {
+                    left: 60px;
+                }
+
+                .timeline-badge {
+                    left: 60px;
+                    margin-left: 0;
+                }
+
+                .timeline-panel {
+                    width: calc(100% - 120px);
+                    float: right;
+                    text-align: left;
+                }
+
+                .timeline-item:nth-child(even) .timeline-panel {
+                    float: right;
+                    text-align: left;
+                }
+
+                /* Panel arrow untuk mobile */
+                .timeline-item:nth-child(odd) .timeline-panel::after {
+                    right: auto;
+                    left: -20px;
+                    border-left-color: transparent;
+                    border-right-color: white;
+                }
+            }
+        </style>
     </section>
 <?php $__env->stopSection(); ?>
 

@@ -100,14 +100,21 @@
             <!-- Data Masuk Siswa Baru -->
             <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarLayouts"
-                    class="{{ request()->routeIs('admin.students.index', 'admin.dokumen.index', 'hasil_seleksi.index') ? 'active' : '' }}">
+                    class="{{ request()->routeIs('admin.students.index', 'admin.dokumen.index', 'hasil_seleksi.index', 'siswa.index') ? 'active' : '' }}">
                     <i class="fas fa-th-list"></i>
                     <p>Data Calon Siswa</p>
                     <span class="caret"></span>
                 </a>
-                <div class="collapse {{ request()->routeIs('admin.students.index', 'admin.dokumen.index', 'hasil_seleksi.index') ? 'show' : '' }}"
+                <div class="collapse {{ request()->routeIs('admin.students.index', 'admin.dokumen.index', 'hasil_seleksi.index', 'siswa.index') ? 'show' : '' }}"
                     id="sidebarLayouts">
                     <ul class="nav nav-collapse">
+                        <li>
+                            <a href="{{ route('siswa.index') }}"
+                                class="{{ request()->routeIs('siswa.index') ? 'active' : '' }}">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span class="absensi">Data Akun Siswa</span>
+                            </a>
+                        </li>
                         <li>
                             <a href="{{ route('admin.students.index') }}"
                                 class="{{ request()->routeIs('admin.students.index') ? 'active' : '' }}">
@@ -126,11 +133,27 @@
                             <a href="{{ route('hasil_seleksi.index') }}"
                                 class="{{ request()->routeIs('hasil_seleksi.index') ? 'active' : '' }}">
                                 <i class="fas fa-chalkboard-teacher"></i>
-                                <span class="absensi">Hasil Seleksi</span>
+                                <span class="absensi">Verifikasi</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('quiz.admin') }}"
+                                class="{{ request()->routeIs('quiz.admin') ? 'active' : '' }}">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span class="absensi">Hasil Test Soal</span>
                             </a>
                         </li>
                     </ul>
                 </div>
+            </li>
+
+            <!-- Informasi PPDB-->
+            <li class="nav-item {{ request()->routeIs('admin.informasi.index') ? 'active' : '' }}">
+                <a href="{{ route('admin.informasi.index') }}">
+                    <i class="fas fa-bullhorn"></i>
+                    <p>Informasi PPDB</p>
+                </a>
             </li>
 
             <!-- Input Data Guru -->
@@ -210,6 +233,8 @@
                 </div>
             </li>
 
+
+
             <!-- Input Data Hasil atau Pengumuman -->
             <li class="nav-item {{ request()->routeIs('pengumuman.index') ? 'active' : '' }}">
                 <a href="{{ route('pengumuman.index') }}">
@@ -219,12 +244,13 @@
             </li>
 
             <!-- Pengaturan -->
-            <li class="nav-item">
-                <a href="#">
+            <li class="nav-item {{ request()->routeIs('admin.settings') ? 'active' : '' }}">
+                <a href="{{ route('admin.settings') }}">
                     <i class="fas fa-cogs"></i>
                     <p>Pengaturan</p>
                 </a>
             </li>
+
 
         </ul>
     </div>

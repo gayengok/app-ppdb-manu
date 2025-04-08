@@ -68,7 +68,7 @@
         <div class="sidebar" data-background-color="dark">
             <div class="sidebar-logo">
                 <div class="logo-header" data-background-color="dark">
-                    <a href="{{ route('dashboard') }}" class="logo">
+                    <a href="{{ route('app') }}" class="logo">
                         <img src="{{ asset('backend/assets/img/kaiadmin/logo-MA.svg') }}" alt="navbar brand"
                             class="navbar-brand" height="35" />
                         <span class="navbar-brand-text">MA NU LU</span>

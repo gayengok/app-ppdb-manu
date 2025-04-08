@@ -12,7 +12,12 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Optional Font Awesome if you want to use icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <script>
         WebFont.load({
             google: {
@@ -70,7 +75,7 @@
         <div class="sidebar" data-background-color="dark">
             <div class="sidebar-logo">
                 <div class="logo-header" data-background-color="dark">
-                    <a href="{{ route('dashboard') }}" class="logo">
+                    <a href="{{ route('app') }}" class="logo">
                         <img src="{{ asset('backend/assets/img/kaiadmin/logo-MA.svg') }}" alt="navbar brand"
                             class="navbar-brand" height="35" />
                         <span class="navbar-brand-text">MA NU LU</span>
@@ -97,14 +102,8 @@
 
         <div class="main-panel">
 
-            @include('backend.admin.menu.main')
+            @include('backend.admin.app.main')
 
-
-            {{-- <div class="container">
-
-                @include('backend.admin.menu.page-inner')
-
-            </div> --}}
 
             <div class="container">
 
@@ -157,9 +156,11 @@
     <!-- Kaiadmin DEMO methods, don't include it in your project! -->
     <script src="{{ asset('backend/assets/js/setting-demo.js') }}"></script>
     <script src="{{ asset('backend/assets/js/demo.js') }}"></script>
-
+    <!-- Tambahkan resource lottie player di head dokumen -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> --}}
 
     <script>
         $(document).ready(function() {

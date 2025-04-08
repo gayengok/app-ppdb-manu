@@ -2,54 +2,131 @@
 
 @section('content')
     <div class="container">
-        <div class="page-inner">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title mb-0"><i class="fas fa-plus"></i> Input Data Siswa Kelas 12</h4>
+        <div class="page-inner py-4">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-header bg-gradient-primary text-white">
+                            <div class="d-flex align-items-center">
+                                <div class="icon-circle bg-white text-primary mr-3">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <h4 class="card-title mb-0 font-weight-bold">Input Data Siswa Kelas 10</h4>
+                            </div>
                         </div>
+
                         @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
+                            <div class="alert alert-danger border-left-danger shadow-sm">
+                                <div class="d-flex">
+                                    <div class="alert-icon">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div>
+                                        <ul class="list-unstyled mb-0">
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         @endif
 
-                        <div class="card-body">
+                        <div class="card-body p-4">
                             <form id="formTambahSiswa" action="{{ route('kelas-12.store') }}" method="POST">
                                 @csrf
-                                <div class="mb-3">
-                                    <label for="nisn" class="form-label">NISN</label>
-                                    <input type="text" class="form-control" id="nisn" name="nisn" required>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label for="nisn"
+                                                class="form-label text-uppercase text-muted"><small>NISN</small></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text bg-light"><i
+                                                            class="fas fa-id-card"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control form-control-lg" id="nisn"
+                                                    name="nisn" placeholder="Masukkan NISN siswa" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label for="full_name" class="form-label text-uppercase text-muted"><small>Nama
+                                                    Lengkap</small></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text bg-light"><i
+                                                            class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control form-control-lg" id="full_name"
+                                                    name="full_name" placeholder="Masukkan nama lengkap" required>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="full_name" class="form-label">Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="full_name" name="full_name" required>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label for="gender" class="form-label text-uppercase text-muted"><small>Jenis
+                                                    Kelamin</small></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text bg-light"><i
+                                                            class="fas fa-venus-mars"></i></span>
+                                                </div>
+                                                <select class="form-control form-control-lg" id="gender" name="gender"
+                                                    required>
+                                                    <option value="" selected disabled>-- Pilih Jenis Kelamin --
+                                                    </option>
+                                                    <option value="Laki-laki">Laki-laki</option>
+                                                    <option value="Perempuan">Perempuan</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label for="status"
+                                                class="form-label text-uppercase text-muted"><small>Status</small></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text bg-light"><i
+                                                            class="fas fa-check-circle"></i></span>
+                                                </div>
+                                                <select class="form-control form-control-lg" id="status" name="status"
+                                                    required>
+                                                    <option value="" selected disabled>-- Pilih Status --</option>
+                                                    <option value="Aktif">Aktif</option>
+                                                    <option value="Tidak Aktif">Tidak Aktif</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="gender" class="form-label">Jenis Kelamin</label>
-                                    <select class="form-select" id="gender" name="gender" required>
-                                        <option value="Laki-laki">Laki-laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                    </select>
+
+                                <div class="form-group mb-4">
+                                    <label for="address"
+                                        class="form-label text-uppercase text-muted"><small>Alamat</small></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text bg-light"><i
+                                                    class="fas fa-map-marker-alt"></i></span>
+                                        </div>
+                                        <textarea class="form-control form-control-lg" id="address" name="address" rows="3"
+                                            placeholder="Masukkan alamat lengkap" required></textarea>
+                                    </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="address" class="form-label">Alamat</label>
-                                    <textarea class="form-control" id="address" name="address" required></textarea>
+
+                                <div class="form-group mt-5 mb-3 text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5 mr-3">
+                                        <i class="fas fa-save mr-2"></i> Simpan Data
+                                    </button>
+                                    <a href="{{ route('kelas-10.index') }}" class="btn btn-light btn-lg px-5">
+                                        <i class="fa fa-arrow-left mr-2"></i> Kembali
+                                    </a>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select class="form-select" id="status" name="status" required>
-                                        <option value="Aktif">Aktif</option>
-                                        <option value="Tidak Aktif">Tidak Aktif</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
-                                <a href="{{ route('kelas-12.index') }}" class="btn btn-secondary">Kembali</a>
                             </form>
                         </div>
                     </div>
@@ -58,3 +135,105 @@
         </div>
     </div>
 @endsection
+
+@push('styles')
+    <style>
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+        }
+
+        .icon-circle {
+            height: 40px;
+            width: 40px;
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card {
+            border-radius: 0.75rem;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .form-control,
+        .input-group-text {
+            border-radius: 0.5rem;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+            border-color: #bac8f3;
+        }
+
+        .border-left-danger {
+            border-left: 0.25rem solid #e74a3b !important;
+        }
+
+        .alert-icon {
+            margin-right: 1rem;
+            font-size: 1.25rem;
+            color: #e74a3b;
+        }
+
+        .btn {
+            border-radius: 0.5rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 115, 223, 0.4);
+        }
+
+        .btn-light:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            // Add subtle animation when form loads
+            $('.card').hide().fadeIn(800);
+
+            // Form validation enhancements
+            $('#formTambahSiswa').on('submit', function(e) {
+                let isValid = true;
+
+                $(this).find('input, select, textarea').each(function() {
+                    if ($(this).prop('required') && !$(this).val()) {
+                        isValid = false;
+                        $(this).addClass('is-invalid').parent().append(
+                            '<div class="invalid-feedback">Field ini harus diisi</div>'
+                        );
+                    } else {
+                        $(this).removeClass('is-invalid').addClass('is-valid');
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Clear validation styling on input
+            $('input, select, textarea').on('focus', function() {
+                $(this).removeClass('is-invalid');
+                $(this).parent().find('.invalid-feedback').remove();
+            });
+        });
+    </script>
+@endpush

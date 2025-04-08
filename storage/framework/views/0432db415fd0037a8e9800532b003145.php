@@ -101,37 +101,61 @@
             <!-- Data Masuk Siswa Baru -->
             <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarLayouts"
-                    class="<?php echo e(request()->routeIs('admin.students.index', 'admin.dokumen.index', 'hasil_seleksi.index') ? 'active' : ''); ?>">
+                    class="<?php echo e(request()->routeIs('admin.students.index', 'admin.dokumen.index', 'quiz.admin', 'hasil_seleksi.index', 'siswa.index') ? 'active' : ''); ?>">
                     <i class="fas fa-th-list"></i>
                     <p>Data Calon Siswa</p>
                     <span class="caret"></span>
                 </a>
-                <div class="collapse <?php echo e(request()->routeIs('admin.students.index', 'admin.dokumen.index', 'hasil_seleksi.index') ? 'show' : ''); ?>"
+                <div class="collapse <?php echo e(request()->routeIs('admin.students.index', 'admin.dokumen.index', 'quiz.admin', 'hasil_seleksi.index', 'siswa.index') ? 'show' : ''); ?>"
                     id="sidebarLayouts">
                     <ul class="nav nav-collapse">
+                        <li>
+                            <a href="<?php echo e(route('siswa.index')); ?>"
+                                class="<?php echo e(request()->routeIs('siswa.index') ? 'active' : ''); ?>">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span class="identitas">Data Akun Siswa</span>
+                            </a>
+                        </li>
                         <li>
                             <a href="<?php echo e(route('admin.students.index')); ?>"
                                 class="<?php echo e(request()->routeIs('admin.students.index') ? 'active' : ''); ?>">
                                 <i class="fas fa-chalkboard-teacher"></i>
-                                <span class="absensi">Data Identitas</span>
+                                <span class="identitas">Data Identitas</span>
                             </a>
                         </li>
                         <li>
                             <a href="<?php echo e(route('admin.dokumen.index')); ?>"
                                 class="<?php echo e(request()->routeIs('admin.dokumen.index') ? 'active' : ''); ?>">
                                 <i class="fas fa-chalkboard-teacher"></i>
-                                <span class="absensi">Dokumen Siswa</span>
+                                <span class="dokumen">Dokumen Siswa</span>
                             </a>
                         </li>
+
                         <li>
                             <a href="<?php echo e(route('hasil_seleksi.index')); ?>"
                                 class="<?php echo e(request()->routeIs('hasil_seleksi.index') ? 'active' : ''); ?>">
                                 <i class="fas fa-chalkboard-teacher"></i>
-                                <span class="absensi">Hasil Seleksi</span>
+                                <span class="verifikasi">Verifikasi</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="<?php echo e(route('quiz.admin')); ?>"
+                                class="<?php echo e(request()->routeIs('quiz.admin') ? 'active' : ''); ?>">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span class="hasil_test">Hasil Test Soal</span>
                             </a>
                         </li>
                     </ul>
                 </div>
+            </li>
+
+            <!-- Informasi PPDB -->
+            <li class="nav-item <?php echo e(request()->routeIs('admin.informasi.index') ? 'active' : ''); ?>">
+                <a href="<?php echo e(route('admin.informasi.index')); ?>">
+                    <i class="fas fa-bullhorn"></i>
+                    <p>Informasi PPDB</p>
+                </a>
             </li>
 
             <!-- Input Data Guru -->
@@ -207,6 +231,8 @@
                 </div>
             </li>
 
+
+
             <!-- Input Data Hasil atau Pengumuman -->
             <li class="nav-item <?php echo e(request()->routeIs('pengumuman.index') ? 'active' : ''); ?>">
                 <a href="<?php echo e(route('pengumuman.index')); ?>">
@@ -216,8 +242,8 @@
             </li>
 
             <!-- Pengaturan -->
-            <li class="nav-item">
-                <a href="#">
+            <li class="nav-item <?php echo e(request()->routeIs('admin.settings') ? 'active' : ''); ?>">
+                <a href="<?php echo e(route('admin.settings')); ?>">
                     <i class="fas fa-cogs"></i>
                     <p>Pengaturan</p>
                 </a>

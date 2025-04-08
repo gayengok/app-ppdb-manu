@@ -51,9 +51,20 @@ class StudentController extends Controller
     public function downloadPdf($id)
     {
         $student = Student::findOrFail($id);
+        $imagePath = public_path('backend/assets/img/logo-MA.png');
+        $logoBase64 = 'data:image/png;base64,' . base64_encode(file_get_contents($imagePath));
 
-        $pdf = PDF::loadView('backend.students.pdf', compact('student'));
+        $pdf = PDF::loadView('backend.students.pdf', compact('student', 'logoBase64'));
 
         return $pdf->download('detail_siswa_' . $student->nama_lengkap . '.pdf');
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $student = Student::findOrFail($id);
+        $student->status = $request->status;
+        $student->save();
+
+        return redirect()->back()->with('success', 'Status berhasil diperbarui.');
     }
 }

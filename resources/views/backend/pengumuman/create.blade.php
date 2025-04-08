@@ -1,4 +1,4 @@
-@extends('backend.dashboard.dashboard.dashboard')
+{{-- @extends('backend.dashboard.dashboard.dashboard')
 
 @section('content')
     <div class="container">
@@ -53,4 +53,4 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection --}}

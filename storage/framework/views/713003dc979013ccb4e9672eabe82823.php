@@ -5,76 +5,76 @@
         <div class="container my-4">
             <div class="row">
                 <div class="col-lg-8 mx-auto content-container">
-                    <!-- Judul Artikel -->
-                    <h1 class="judul-berita" style="font-weight: 800; line-height: 1.2; text-align: center; margin: 0 auto;">
+                    <!-- Article Title -->
+                    <h1 class="article-title">
                         <?php echo e($artikel->title); ?>
 
                     </h1>
-                    <div class="divider mb-3"></div>
-
-                    <p class="text-center text-muted mb-4" style="position: relative; top: -10px; font-size: 1rem;">
-                        <?php echo e(\Carbon\Carbon::parse($artikel->published_date)->format('d F Y')); ?> | Oleh:
-                        <?php echo e($artikel->author); ?></p>
-
-                    <!-- Tombol Berbagi -->
-                    <div class="d-flex justify-content-center gap-3 social-buttons mt-4"
-                        style="position: relative; top: -20px;">
-                        <a href="#"
-                            class="btn btn-primary rounded-circle shadow d-flex align-items-center justify-content-center"
-                            title="Bagikan ke Facebook" style="width: 45px; height: 45px;">
-                            <i class="bi bi-facebook fs-5"></i>
-                        </a>
-                        <a href="#"
-                            class="btn btn-info rounded-circle shadow d-flex align-items-center justify-content-center text-white"
-                            title="Bagikan ke Twitter" style="width: 45px; height: 45px;">
-                            <i class="bi bi-twitter fs-5"></i>
-                        </a>
-                        <a href="#"
-                            class="btn btn-success rounded-circle shadow d-flex align-items-center justify-content-center"
-                            title="Bagikan ke WhatsApp" style="width: 45px; height: 45px;">
-                            <i class="bi bi-whatsapp fs-5"></i>
-                        </a>
-                        <a href="#"
-                            class="btn btn-danger rounded-circle shadow d-flex align-items-center justify-content-center"
-                            title="Bagikan ke LinkedIn" style="width: 45px; height: 45px;">
-                            <i class="bi bi-linkedin fs-5"></i>
-                        </a>
+                    <div class="article-meta">
+                        <span class="date"><?php echo e(\Carbon\Carbon::parse($artikel->published_date)->format('d F Y')); ?></span>
+                        <span class="author">Penulis :<?php echo e($artikel->author); ?></span>
                     </div>
 
-
-                    <!-- Gambar Berita -->
-                    <div class="text-center article-image mb-4">
-                        <img src="<?php echo e(asset('storage/' . $artikel->image)); ?>" alt="Gambar Berita" class="img-fluid"
-                            style="max-width: 100%; object-fit: cover;">
+                    <!-- Featured Image -->
+                    <div class="featured-image">
+                        <img src="<?php echo e(asset('storage/' . $artikel->image)); ?>" alt="<?php echo e($artikel->title); ?>" class="img-fluid">
                     </div>
 
-
-
-                    <!-- Isi Artikel -->
-                    <div class="artikel-body" style="font-size: 1.125rem; line-height: 1.8; color: #333;">
-                        <p><span style="font-size: 14.98px;"><?php echo $artikel->content; ?></span></p>
+                    <!-- Social Share Buttons -->
+                    <div class="social-share">
+                        <span class="share-label">Bagikan:</span>
+                        <div class="social-buttons">
+                            <a href="#" class="btn-social facebook" title="Bagikan ke Facebook">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+                            <a href="#" class="btn-social twitter" title="Bagikan ke Twitter">
+                                <i class="bi bi-twitter"></i>
+                            </a>
+                            <a href="#" class="btn-social whatsapp" title="Bagikan ke WhatsApp">
+                                <i class="bi bi-whatsapp"></i>
+                            </a>
+                            <a href="#" class="btn-social linkedin" title="Bagikan ke LinkedIn">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+                        </div>
                     </div>
+
+                    <!-- Article Content -->
+                    <div class="article-content">
+                        <?php echo $artikel->content; ?>
+
+                    </div>
+
+                    <!-- Article Tags (if available) -->
+                    <?php if(isset($artikel->tags) && !empty($artikel->tags)): ?>
+                        <div class="article-tags">
+                            <?php $__currentLoopData = explode(',', $artikel->tags); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tag): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <a href="#" class="tag"><?php echo e(trim($tag)); ?></a>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
-                <!-- Kolom Artikel Terkait -->
-                <div class="col-lg-4 mt-4 mt-lg-0" style="padding-top: 170px;">
-                    <h3 class="text-center artikel-terkait">Artikel Terkait</h3>
+                <!-- Related Articles Sidebar -->
+                <div class="col-lg-4 related-articles-sidebar">
+                    <div class="sidebar-inner">
+                        <h3 class="sidebar-title">Artikel Terkait</h3>
 
-                    <div class="row">
-                        <?php $__currentLoopData = $relatedArticles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $related): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <div class="col-12 mb-4">
-                                <div class="card article-card">
-                                    <img src="<?php echo e(asset('storage/' . $related->image)); ?>" class="card-img-top"
-                                        alt="Artikel Terkait">
-                                    <div class="card-body">
+                        <div class="related-articles">
+                            <?php $__currentLoopData = $relatedArticles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $related): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="related-article-card">
+                                    <div class="card-image">
+                                        <img src="<?php echo e(asset('storage/' . $related->image)); ?>" alt="<?php echo e($related->title); ?>">
+                                    </div>
+                                    <div class="card-content">
                                         <h5 class="card-title"><?php echo e($related->title); ?></h5>
-                                        <a href="<?php echo e(route('article.show', $related->id)); ?>" class="btn btn-sm btn-success">
-                                            Baca Selengkapnya
+                                        <a href="<?php echo e(route('article.show', $related->id)); ?>" class="read-more">
+                                            Baca Selengkapnya <i class="bi bi-arrow-right"></i>
                                         </a>
                                     </div>
                                 </div>
-                            </div>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,80 +82,296 @@
     </section>
 <?php $__env->stopSection(); ?>
 
-
 <style>
-    .py-8 {
-        padding-top: 6rem !important;
-        padding-bottom: 6rem !important;
+    /* General Styles */
+    .news-article-section {
+        padding: 6rem 0;
+        background-color: #f8f9fa;
+        font-family: 'Inter', sans-serif;
     }
 
-    .social-buttons a {
-        transition: all 0.3s ease;
-    }
-
-    .social-buttons a:hover {
-        transform: scale(1.2);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-
-    .article-image img {
-        max-width: 100%;
-        height: 600px;
-        object-fit: cover;
-    }
-
-    @media (max-width: 768px) {
-        .article-image img {
-            height: 300px;
-            object-fit: cover;
-        }
-    }
-
-
-    .judul-berita {
-        font-size: 2.5rem;
+    /* Article Title */
+    .article-title {
+        font-size: 2.75rem;
         font-weight: 800;
-        /* line-height: 1.4; */
+        line-height: 1.2;
         text-align: center;
-        margin: 0 auto;
+        margin: 0 0 1.5rem;
+        color: #111827;
     }
 
-    @media (max-width: 768px) {
-        .judul-berita {
-            font-size: 1.8rem;
-            line-height: 1.1;
-        }
+    /* Article Meta */
+    .article-meta {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        font-size: 1rem;
+        color: #6b7280;
+        margin-bottom: 2rem;
     }
 
-    @media (max-width: 480px) {
-        .judul-berita {
-            font-size: 1.5rem;
-            line-height: 1.1;
-        }
+    /* Featured Image */
+    .featured-image {
+        margin-bottom: 2.5rem;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
 
-
-    .text-center {
-        text-align: center;
+    .featured-image img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
     }
 
-    .artikel-terkait {
-        font-size: 2.2rem;
-        font-weight: bold;
-        color: #2c3e50;
+    .featured-image:hover img {
+        transform: scale(1.02);
+    }
+
+    /* Social Share */
+    .social-share {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2.5rem;
+        border-bottom: 1px solid #e5e7eb;
+        padding-bottom: 1.5rem;
+    }
+
+    .share-label {
+        font-weight: 600;
+        margin-right: 1rem;
+        color: #374151;
+    }
+
+    .social-buttons {
+        display: flex;
+        gap: 0.75rem;
+    }
+
+    .btn-social {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-social:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-social.facebook {
+        background-color: #1877f2;
+    }
+
+    .btn-social.twitter {
+        background-color: #1da1f2;
+    }
+
+    .btn-social.whatsapp {
+        background-color: #25d366;
+    }
+
+    .btn-social.linkedin {
+        background-color: #0a66c2;
+    }
+
+    /* Article Content */
+    .article-content {
+        font-size: 1.125rem;
+        line-height: 1.8;
+        color: #1f2937;
+        margin-bottom: 2.5rem;
+    }
+
+    .article-content p {
         margin-bottom: 1.5rem;
     }
 
-    @media (max-width: 768px) {
-        .artikel-terkait {
-            font-size: 2rem;
+    /* Article Tags */
+    .article-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .tag {
+        padding: 0.5rem 1rem;
+        background-color: #f3f4f6;
+        border-radius: 50px;
+        color: #4b5563;
+        font-size: 0.875rem;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .tag:hover {
+        background-color: #e5e7eb;
+        color: #111827;
+    }
+
+    /* Related Articles Sidebar */
+    .related-articles-sidebar {
+        padding-top: 10px;
+    }
+
+    .related-articles-sidebar {
+        position: sticky;
+        top: 80px;
+        /* Jarak dari atas */
+        max-height: 80vh;
+        /* Supaya tidak terlalu panjang */
+        overflow-y: auto;
+        /* Scroll jika kontennya terlalu panjang */
+    }
+
+    .sidebar-inner {
+        position: sticky;
+        top: 100px;
+    }
+
+    .sidebar-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.75rem;
+    }
+
+    .sidebar-title:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background-color: #10b981;
+        border-radius: 2px;
+    }
+
+    .related-articles {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        max-height: 400px;
+    }
+
+
+
+    .related-article-card {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .related-article-card:hover {
+        transform: translateX(5px);
+    }
+
+    .card-image {
+        overflow: hidden;
+        border-radius: 8px;
+    }
+
+    .card-image img {
+        width: 100%;
+        height: 100px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .related-article-card:hover .card-image img {
+        transform: scale(1.1);
+    }
+
+    .card-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #111827;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .read-more {
+        margin-top: auto;
+        color: #10b981;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        transition: gap 0.3s ease;
+    }
+
+    .read-more:hover {
+        gap: 0.5rem;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+        .related-articles-sidebar {
+            padding-top: 3rem;
+        }
+
+        .sidebar-inner {
+            position: static;
         }
     }
 
-    @media (max-width: 480px) {
-        .artikel-terkait {
+    @media (max-width: 768px) {
+        .article-title {
+            font-size: 2rem;
+        }
+
+        .featured-image img {
+            height: 350px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .news-article-section {
+            padding: 4rem 0;
+        }
+
+        .article-title {
             font-size: 1.5rem;
+        }
+
+        .article-meta {
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .featured-image img {
+            height: 250px;
+        }
+
+        .related-article-card {
+            grid-template-columns: 100px 1fr;
+        }
+
+        .card-image img {
+            height: 80px;
         }
     }
 </style>

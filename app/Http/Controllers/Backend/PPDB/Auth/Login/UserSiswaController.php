@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Backend\PPDB\Auth\Login;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
-use App\Models\UserSiswa;
+
 
 class UserSiswaController extends Controller
 {
@@ -14,28 +15,35 @@ class UserSiswaController extends Controller
         return view('backend.admin.login-siswa.login_siswa');
     }
 
-
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'nik' => 'required|digits:16',
-            'password' => 'required'
+        $request->validate([
+            'nisn' => 'required|digits:10',
+            'password' => 'required|min:6'
         ]);
 
-        if (Auth::guard('usersiswa')->attempt($credentials)) {
-            $request->session()->regenerate();
+
+        if (Auth::guard('calonsiswa')->attempt(['nisn' => $request->nisn, 'password' => $request->password])) {
+            $user = Auth::guard('calonsiswa')->user();
+            $request->session()->put('calonsiswa', $user->id);
+
             return redirect()->route('app')->with('success', 'Login berhasil!');
         }
 
-        return back()->withErrors(['nik' => 'NIK atau password salah.'])->withInput();
+        return back()->withErrors(['nisn' => 'NISN atau password salah.'])->withInput();
     }
 
 
 
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::guard('usersiswa')->logout();
-        return redirect()->route('login.siswa'); // Redirect ke halaman login setelah logout
+        Auth::logout();
+
+        // Hapus session user
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login_siswa')->with('success', 'Anda telah berhasil logout.');
     }
 }
